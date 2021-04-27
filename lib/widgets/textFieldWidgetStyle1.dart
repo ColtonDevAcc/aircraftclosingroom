@@ -59,7 +59,7 @@ class TextFieldWidget extends StatelessWidget {
           child: Icon(
             suffixIconData,
             size: 18,
-            color: Global.primaryColor,
+            color: Global.secondayColor,
           ),
         ),
         labelStyle: TextStyle(color: Global.primaryColor),

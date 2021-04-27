@@ -18,28 +18,30 @@ class ButtonWidgetStyle1 extends StatelessWidget {
         decoration: BoxDecoration(
           color: hasBorder ? Global.primaryColor : Colors.white,
           //apply border raidus to decoration
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(0),
           //is has border true ? if so add it color and width if not set BorderSide to none
-          border: hasBorder
-              ? Border.all(
-                  color: Global.primaryColor,
-                  width: 1,
-                )
-              : Border.fromBorderSide(BorderSide.none),
+          border: hasBorder ? Border.all(color: Global.primaryColor, width: 2) : Border.fromBorderSide(BorderSide.none),
         ),
         child: InkWell(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(0),
           onTap: onTapFunction,
           child: Container(
             height: 60,
             child: Center(
-              child: Text(
-                buttonTitle,
-                style: TextStyle(
-                  color: hasBorder ? Colors.white : Global.primaryColor,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Spacer(flex: 1),
+                  Text(
+                    buttonTitle,
+                    style: TextStyle(color: hasBorder ? Colors.white : Global.primaryColor, fontWeight: FontWeight.w600, fontSize: 20),
+                  ),
+                  Spacer(flex: 1),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.white,
+                  )
+                ],
               ),
             ),
           ),
