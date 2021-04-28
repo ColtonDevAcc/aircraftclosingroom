@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ButtonWidgetStyle1 extends StatelessWidget {
   final String buttonTitle;
   final bool hasBorder;
-  final void Function() onTapFunction;
+  final Function() onTapFunction;
 
   ButtonWidgetStyle1({
     required this.buttonTitle,

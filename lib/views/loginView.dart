@@ -1,8 +1,8 @@
 import 'package:aircraftclosingroom/core/global.dart';
 import 'package:aircraftclosingroom/models/homeModel.dart';
+import 'package:aircraftclosingroom/views/mainView.dart';
 import 'package:aircraftclosingroom/widgets/buttonWidgetStyle1.dart';
 import 'package:aircraftclosingroom/widgets/textFieldWidgetStyle1.dart';
-import 'package:aircraftclosingroom/widgets/waveWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +16,6 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     final homeModel = Provider.of<HomeModel>(context);
-    final size = MediaQuery.of(context).size;
-    final bool keyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
     return ChangeNotifierProvider(
       create: (BuildContext context) => HomeModel(),
       child: Scaffold(
@@ -74,14 +72,19 @@ class _LoginViewState extends State<LoginView> {
                   ],
                 ),
 
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 ButtonWidgetStyle1(
                   hasBorder: true,
                   buttonTitle: "Login",
-                  onTapFunction: () => print("pressed"),
+                  onTapFunction: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MainView()),
+                    );
+                  },
                 ),
 
-                SizedBox(height: 230),
+                SizedBox(height: 180),
               ],
             ),
           ),
