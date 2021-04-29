@@ -1,5 +1,5 @@
 import 'package:aircraftclosingroom/models/homeModel.dart';
-import 'package:aircraftclosingroom/views/loginView.dart';
+import 'package:aircraftclosingroom/views/mainView.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
       create: (BuildContext context) => HomeModel(),
       child: MaterialApp(
         debugShowCheckedModeBanner: _debugBuild,
-        home: LoginView(),
+        home: MainView(),
+        theme: ThemeData(),
       ),
     );
   }
