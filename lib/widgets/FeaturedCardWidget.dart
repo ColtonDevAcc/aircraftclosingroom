@@ -2,7 +2,7 @@ import 'package:aircraftclosingroom/core/global.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Padding largeFeaturedCardWidget({screenWidth: double, screenHeight: double, title: String}) {
+Padding largeFeaturedCardWidget({screenWidth: double, screenHeight: double, title: String, useAsAppBar: false}) {
   return Padding(
     padding: EdgeInsets.fromLTRB(screenWidth / 18, 0, screenWidth / 18, 5),
     child: Card(
@@ -19,18 +19,41 @@ Padding largeFeaturedCardWidget({screenWidth: double, screenHeight: double, titl
           SafeArea(
             child: Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, screenHeight / 2),
-              child: Row(
-                children: [
-                  Spacer(flex: 3),
-                  Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Global.secondaryTextColor)),
-                  Spacer(flex: 2),
-                  Icon(Icons.search, color: Global.secondaryTextColor),
-                  Spacer(flex: 1),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                child: Row(
+                  children: [
+                    useAsAppBar ? Spacer(flex: 1) : Text(''), //i set this as a blank text widget because i cant return nothing :/
+                    useAsAppBar ? Icon(Icons.arrow_back_ios, color: Global.secondaryTextColor) : Spacer(flex: 1),
+                    Spacer(flex: 2),
+                    Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Global.secondaryTextColor)),
+                    Spacer(flex: 2),
+                    Icon(Icons.search, color: Global.secondaryTextColor),
+                    Spacer(flex: 1),
+                  ],
+                ),
               ),
             ),
           ),
-          //Image.asset(),
+          useAsAppBar
+              ? Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 6),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Spacer(flex: 1),
+                      Icon(Icons.ac_unit),
+                      Spacer(flex: 1),
+                      Icon(Icons.ac_unit),
+                      Spacer(flex: 1),
+                      Icon(Icons.ac_unit),
+                      Spacer(flex: 1),
+                      Icon(Icons.ac_unit),
+                      Spacer(flex: 1),
+                    ],
+                  ),
+                )
+              : Text('') //i set this as a blank text widget because i cant return nothing :/
         ],
       ),
     ),

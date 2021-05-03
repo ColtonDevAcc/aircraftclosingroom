@@ -12,6 +12,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  static ThemeData mainTheme = ThemeData();
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: _debugBuild,
         home: MainView(),
-        theme: ThemeData(),
+        theme: mainTheme,
       ),
     );
   }

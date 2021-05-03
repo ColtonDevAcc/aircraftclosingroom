@@ -15,78 +15,74 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
-    final homeModel = Provider.of<HomeModel>(context);
-    return ChangeNotifierProvider(
-      create: (BuildContext context) => HomeModel(),
-      child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/Aic_login_Page.png'),
-              fit: BoxFit.fill,
-            ),
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/Aic_login_Page.png'),
+            fit: BoxFit.fill,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              // this sets all the email fields to what ever the user specifys
-              children: [
-                TextFieldWidget(
-                  hintText: 'Email',
-                  obscure: false,
-                  prefixIcon: Icons.email,
-                  suffixIconData: homeModel.isValid ? Icons.check : null,
-                  onTextChanged: (value) => homeModel.setEmailInput = value,
-                ),
-                SizedBox(height: 10),
-                //this column contains the password filed and the forgot password link
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    TextFieldWidget(
-                      hintText: 'Password',
-                      obscure: homeModel.obscurePass,
-                      prefixIcon: Icons.vpn_key,
-                      suffixIconData: homeModel.obscurePass ? Icons.visibility : Icons.visibility_off,
-                      onTextChanged: (value) {}, //TODO: ADD AUTH
-                      //sets the pass text to obscure or not obscure
-                      onSuffixiconTap: () {
-                        homeModel.obscurePass ? homeModel.setObscurePass = false : homeModel.setObscurePass = true;
-                      },
-                    ),
-                    SizedBox(height: 10),
-                    //forgot password action
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            // this sets all the email fields to what ever the user specifys
+            children: [
+              TextFieldWidget(
+                hintText: 'Email',
+                obscure: false,
+                prefixIcon: Icons.email,
+                suffixIconData: homeModel.isValid ? Icons.check : null,
+                onTextChanged: (value) => homeModel.setEmailInput = value,
+              ),
+              SizedBox(height: 10),
+              //this column contains the password filed and the forgot password link
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  TextFieldWidget(
+                    hintText: 'Password',
+                    obscure: homeModel.obscurePass,
+                    prefixIcon: Icons.vpn_key,
+                    suffixIconData: homeModel.obscurePass ? Icons.visibility : Icons.visibility_off,
+                    onTextChanged: (value) {}, //TODO: ADD AUTH
+                    //sets the pass text to obscure or not obscure
+                    onSuffixiconTap: () {
+                      homeModel.obscurePass ? homeModel.setObscurePass = false : homeModel.setObscurePass = true;
+                    },
+                  ),
+                  SizedBox(height: 10),
+                  //forgot password action
 
-                    GestureDetector(
-                      onTap: () {
-                        print("OOOOOO man i forgot my pass :(");
-                      },
-                      child: Text(
-                        'Forgot password?',
-                        style: TextStyle(
-                          color: Global.primaryColor,
-                        ),
+                  GestureDetector(
+                    onTap: () {
+                      print("OOOOOO man i forgot my pass :(");
+                    },
+                    child: Text(
+                      'Forgot password?',
+                      style: TextStyle(
+                        color: Global.primaryColor,
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
+              ),
 
-                SizedBox(height: 10),
-                ButtonWidgetStyle1(
-                  hasBorder: true,
-                  buttonTitle: "Login",
-                  onTapFunction: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MainView()),
-                    );
-                  },
-                ),
+              SizedBox(height: 10),
+              ButtonWidgetStyle1(
+                hasBorder: true,
+                buttonTitle: "Login",
+                onTapFunction: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MainView()),
+                  );
+                },
+              ),
 
-                SizedBox(height: 180),
-              ],
-            ),
+              SizedBox(height: 180),
+            ],
           ),
         ),
       ),
