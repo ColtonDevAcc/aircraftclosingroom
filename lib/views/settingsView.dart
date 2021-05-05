@@ -42,7 +42,6 @@ class _SettingsViewState extends State<SettingsView> {
                         setState(() {
                           print(_switchValue);
                           _switchValue = darkmode;
-                          MyApp.mainTheme = ThemeData.dark();
                         });
                       }),
                   icon: Icons.dark_mode_outlined)

@@ -1,7 +1,7 @@
+//notify home model on change
 import 'package:aircraftclosingroom/core/global.dart';
 import 'package:flutter/cupertino.dart';
 
-//notify home model on change
 class HomeModel extends ChangeNotifier {
   //password is visable ?? the user must set this as activated by clicking the visable icon
 

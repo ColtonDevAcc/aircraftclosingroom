@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ScrollController _controller = ScrollController();
+
     double screenHeight = MediaQuery.of(context).size.height.toDouble();
     double screenWidth = MediaQuery.of(context).size.height.toDouble();
 
@@ -31,6 +33,8 @@ class HomeView extends StatelessWidget {
           height: 185.0,
           child: ListView(
             scrollDirection: Axis.horizontal,
+            controller: _controller,
+            physics: AlwaysScrollableScrollPhysics(),
             //this is where you create the objective cards
             children: <Widget>[
               closingCardsWidget(color: Global.primaryAccent, transparent: true),
@@ -41,7 +45,7 @@ class HomeView extends StatelessWidget {
               closingCardsWidget(color: Colors.orange.shade400, transparent: false),
               closingCardsWidget(color: Colors.blue.shade200, transparent: false),
               closingCardsWidget(color: Colors.red.shade700, transparent: false),
-            ],
+            ].toList(),
           ),
         )
       ],
@@ -54,7 +58,7 @@ Padding closingCardsWidget({color: Colors, transparent: bool}) {
     padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
     child: Container(
       height: 200,
-      width: 163,
+      width: transparent ? 40 : 163,
       child: Card(
         elevation: transparent ? 0.0 : 2.0,
         shadowColor: transparent ? Colors.white.withOpacity(0) : Colors.black,
@@ -79,7 +83,7 @@ Padding closingCardsWidget({color: Colors, transparent: bool}) {
                       ),
               ),
             ),
-            Text('Engine', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500))
+            Text('Engine', style: TextStyle(color: transparent ? Colors.white.withOpacity(0) : Colors.white, fontWeight: FontWeight.w500))
           ],
         ),
       ),

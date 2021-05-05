@@ -1,11 +1,11 @@
 import 'package:aircraftclosingroom/core/global.dart';
 import 'package:aircraftclosingroom/models/homeModel.dart';
+import 'package:aircraftclosingroom/services/userinfo_service.dart';
 import 'package:aircraftclosingroom/views/mainView.dart';
 import 'package:aircraftclosingroom/widgets/buttonWidgetStyle1.dart';
 import 'package:aircraftclosingroom/widgets/textFieldWidgetStyle1.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -15,6 +15,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
+    HomeModel homeModel = new HomeModel();
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -74,10 +75,7 @@ class _LoginViewState extends State<LoginView> {
                 hasBorder: true,
                 buttonTitle: "Login",
                 onTapFunction: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MainView()),
-                  );
+                  _logIn() ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainView())) : print("");
                 },
               ),
 
@@ -88,4 +86,10 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
+}
+
+bool _logIn() {
+  UserInfo user = new UserInfo();
+  user.userLogIn(userEmailAddress: 'cbristow@aictitl.com', userPassword: 'C0lt0n.Brist0w99((');
+  return false;
 }
