@@ -1,19 +1,12 @@
 class LogInUser {
-  LogInUser(
-    this.customerID,
-    this.customerName,
-    this.companyName,
-    this.email,
-    this.photoIdRequired,
-    this.photoIdOnFile,
-  );
-
   final int customerID;
   final String customerName;
   final String companyName;
   final String email;
   final String photoIdRequired;
   final String photoIdOnFile;
+
+  LogInUser(this.customerID, this.customerName, this.companyName, this.email, this.photoIdRequired, this.photoIdOnFile);
 
   LogInUser.fromJson(Map<String, dynamic> json)
       : customerID = json['CustomerID'],

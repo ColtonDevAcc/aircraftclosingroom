@@ -8,6 +8,7 @@ class TextFieldWidget extends StatelessWidget {
   final bool obscure;
   final void Function(String) onTextChanged;
   final void Function()? onSuffixiconTap;
+  final TextEditingController controller;
 
   const TextFieldWidget({
     Key? key,
@@ -16,6 +17,7 @@ class TextFieldWidget extends StatelessWidget {
     required this.suffixIconData,
     required this.obscure,
     required this.onTextChanged,
+    required this.controller,
     this.onSuffixiconTap,
   }) : super(key: key);
 
@@ -23,6 +25,7 @@ class TextFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       onChanged: onTextChanged,
+      controller: controller,
       style: TextStyle(
         color: Global.primaryColor,
         fontSize: 14.0,

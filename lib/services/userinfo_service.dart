@@ -1,15 +1,14 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
+import 'package:recursive_regex/recursive_regex.dart';
 
 class UserInfo {
-  String customerID = 'User Id without .ToInt()';
-  String firstName = 'User First Name';
-  String lastName = 'User Last Name';
-  String company = 'User Company';
-  String email = 'User Email';
-  bool photoIdRequired = false;
-  bool photoIdOnFile = false;
+  var customerID;
+  var customerName;
+  var companyName;
+  var email;
+  var photoIdRequired;
+  var photoIdOnFile;
+  var accepteduser;
 
   dynamic userSecretKey = 'super secret key';
 
@@ -17,20 +16,32 @@ class UserInfo {
     try {
       var response = await Dio().post(
         'https://aicvirtualclosings.com/api/mobile/auth/',
-        data: {'UserName': 'cbristow@aictitle.com', 'Password': 'C0lt0n.Brist0w99(('},
+        data: {'UserName': userEmailAddress, 'Password': userPassword},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
       this.userSecretKey = response;
-    } catch (e) {
-      print(e);
-    } finally {
+    } catch (e) {} finally {
       var userInfo = await Dio().get("http://aicvirtualclosings.com/api/mobile/userinfo/${this.userSecretKey}");
-      this.customerID = (userInfo.data[0].toString());
-
+      String userRawInfo = userInfo.data[0].toString();
+      this.customerID = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'CustomerID: ', endDelimiter: r', CustomerName');
+      this.customerName = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'CustomerName: ', endDelimiter: r', CompanyName');
+      this.companyName = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'CompanyName: ', endDelimiter: r', Email');
+      this.email = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'Email: ', endDelimiter: r', PhotoIdRequired');
+      this.photoIdRequired = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'PhotoIdRequired: ', endDelimiter: r', PhotoIdOnFile');
+      this.photoIdOnFile = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'PhotoIdOnFile: ', endDelimiter: r'}');
+      print('user API loaded');
       print(this.customerID);
+      print(this.customerName);
+      print(this.email);
+      print(this.photoIdRequired);
+      print(this.photoIdOnFile);
+      this.accepteduser = true;
     }
   }
-}
 
-// Map data = {'UserName': userEmailAddress, 'Password': userPassword};
-//     String body = json.encode(data);
+  String parseUserInfoString({jsonString: String, startDelimiter: String, endDelimiter: String}) {
+    String result = RecursiveRegex(startDelimiter: RegExp(startDelimiter), endDelimiter: RegExp(endDelimiter), captureGroupName: "result").firstMatch(jsonString)!.namedGroup('result').toString();
+
+    return result;
+  }
+}

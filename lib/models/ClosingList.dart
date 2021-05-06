@@ -1,6 +1,5 @@
 class ClosingList {
-  ClosingList(this.closingID, this.tailNumber, this.make, this.model,
-      this.sNumber, this.orderDate, this.agentName, this.status, this.objType);
+  ClosingList(this.closingID, this.tailNumber, this.make, this.model, this.sNumber, this.orderDate, this.agentName, this.status, this.objType);
 
   final int closingID;
   final String tailNumber;
@@ -24,16 +23,6 @@ class ClosingList {
         objType = json['InvObjType'];
 
   Map<String, dynamic> toJson() {
-    return {
-      'ClosingID': closingID,
-      'TailNumber': tailNumber,
-      'Make': make,
-      'Model': model,
-      'SN': sNumber,
-      'OrderDate': orderDate,
-      'AgentName': agentName,
-      'Status': status,
-      'InvObjType': objType
-    };
+    return {'ClosingID': closingID, 'TailNumber': tailNumber, 'Make': make, 'Model': model, 'SN': sNumber, 'OrderDate': orderDate, 'AgentName': agentName, 'Status': status, 'InvObjType': objType};
   }
 }

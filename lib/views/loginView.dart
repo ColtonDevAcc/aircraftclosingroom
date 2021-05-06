@@ -15,7 +15,21 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
+    final emailTextController = new TextEditingController();
+    final passwordTextController = new TextEditingController();
+
     HomeModel homeModel = new HomeModel();
+    UserInfo user = UserInfo();
+
+    bool _logIn() {
+      user.userLogIn(userEmailAddress: emailTextController.text, userPassword: passwordTextController.text);
+      if (user.accepteduser == true) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -34,6 +48,7 @@ class _LoginViewState extends State<LoginView> {
                 hintText: 'Email',
                 obscure: false,
                 prefixIcon: Icons.email,
+                controller: emailTextController,
                 suffixIconData: homeModel.isValid ? Icons.check : null,
                 onTextChanged: (value) => homeModel.setEmailInput = value,
               ),
@@ -48,7 +63,7 @@ class _LoginViewState extends State<LoginView> {
                     prefixIcon: Icons.vpn_key,
                     suffixIconData: homeModel.obscurePass ? Icons.visibility : Icons.visibility_off,
                     onTextChanged: (value) {}, //TODO: ADD AUTH
-                    //sets the pass text to obscure or not obscure
+                    controller: passwordTextController,
                     onSuffixiconTap: () {
                       homeModel.obscurePass ? homeModel.setObscurePass = false : homeModel.setObscurePass = true;
                     },
@@ -74,8 +89,13 @@ class _LoginViewState extends State<LoginView> {
               ButtonWidgetStyle1(
                 hasBorder: true,
                 buttonTitle: "Login",
-                onTapFunction: () {
-                  _logIn() ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainView())) : print("");
+                onTapFunction: () async {
+                  await _logIn();
+                  if (user.accepteduser == true) {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainView()));
+                  } else {
+                    print('flase: (((((((((((((((((');
+                  }
                 },
               ),
 
@@ -86,10 +106,4 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
-}
-
-bool _logIn() {
-  UserInfo user = new UserInfo();
-  user.userLogIn(userEmailAddress: 'cbristow@aictitl.com', userPassword: 'C0lt0n.Brist0w99((');
-  return false;
 }
