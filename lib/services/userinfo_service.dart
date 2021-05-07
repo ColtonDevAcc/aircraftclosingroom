@@ -36,7 +36,7 @@ class UserInfo {
 
       Map<String, dynamic> closingListMap = jsonDecode('http://aicvirtualclosings.com/api/mobile/closings/${this.userSecretKey}');
       var closingList = ClosingList.fromJson(closingListMap);
-      print(closingList);
+      print(closingList.toString());
     } catch (e) {} finally {
       print('user API loaded');
       this.accepteduser = true;

@@ -1,7 +1,7 @@
 import 'package:aircraftclosingroom/core/global.dart';
 import 'package:flutter/material.dart';
 
-Card smallHorizontalCardWidget({color: Color, title: String, icon: Icons, trailingWidget: Widget}) {
+Card smallHorizontalFeaturedCardWidget({color: Color, title: String, icon: Icons, trailingWidget: Widget}) {
   return Card(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(

@@ -1,5 +1,4 @@
 import 'package:aircraftclosingroom/core/global.dart';
-import 'package:aircraftclosingroom/main.dart';
 import 'package:aircraftclosingroom/widgets/FeaturedCardWidget.dart';
 import 'package:aircraftclosingroom/widgets/smallHorizontalCardWidget.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,13 +24,13 @@ class _SettingsViewState extends State<SettingsView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              smallHorizontalCardWidget(title: 'Your Account', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.account_circle_outlined),
-              smallHorizontalCardWidget(title: 'Your Closings', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.cases_outlined),
-              smallHorizontalCardWidget(title: 'Support', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.support_agent_outlined),
-              smallHorizontalCardWidget(title: 'About us', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.info_outline_rounded),
-              smallHorizontalCardWidget(title: 'Developer Mode', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.developer_mode_outlined),
+              smallHorizontalFeaturedCardWidget(title: 'Your Account', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.account_circle_outlined),
+              smallHorizontalFeaturedCardWidget(title: 'Your Closings', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.cases_outlined),
+              smallHorizontalFeaturedCardWidget(title: 'Support', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.support_agent_outlined),
+              smallHorizontalFeaturedCardWidget(title: 'About us', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.info_outline_rounded),
+              smallHorizontalFeaturedCardWidget(title: 'Developer Mode', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.developer_mode_outlined),
               //dark mode widget.. set through set state TODO: set state in a provider package
-              smallHorizontalCardWidget(
+              smallHorizontalFeaturedCardWidget(
                   title: 'Dark Mode',
                   color: Global.secondaryButton,
                   trailingWidget: Switch(

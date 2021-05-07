@@ -1,4 +1,4 @@
-import 'package:aircraftclosingroom/views/loginView.dart';
+import 'package:aircraftclosingroom/views/logIn/loginView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

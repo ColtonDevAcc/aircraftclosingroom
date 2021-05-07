@@ -1,10 +1,10 @@
 import 'package:aircraftclosingroom/core/global.dart';
-import 'package:aircraftclosingroom/views/homeView.dart';
-import 'package:aircraftclosingroom/views/settingsView.dart';
+import 'package:aircraftclosingroom/views/home/homeView.dart';
+import 'package:aircraftclosingroom/views/settings/settingsView.dart';
+import 'package:aircraftclosingroom/views/userInfo/userInfoView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-import '../views/closingCardView.dart';
 
 class MainView extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _MainViewState extends State<MainView> {
   final List<Widget> _children = [
     SettingsView(),
     HomeView(),
-    ClosingCardView(),
+    UserInfoView(),
   ];
   @override
   Widget build(BuildContext context) {

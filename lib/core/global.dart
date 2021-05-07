@@ -1,7 +1,5 @@
 import 'dart:ui';
-import 'package:aircraftclosingroom/core/sharedUtility.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/all.dart';
 
 class Global {
   static const List validEmail = ['test@gmail.com'];

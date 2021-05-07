@@ -14,7 +14,7 @@ class HomeView extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        largeFeaturedCardWidget(screenHeight: screenHeight / 1.2, screenWidth: screenWidth / 3.5, title: 'Your Closings'),
+        largeFeaturedCardWidget(screenHeight: screenHeight / 1.3, screenWidth: screenWidth / 3.5, title: 'Your Closings'),
         //column that displays header text 'objectives/browse'
         Column(
           children: [
