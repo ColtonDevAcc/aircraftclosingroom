@@ -18,19 +18,17 @@ class HomeView extends StatelessWidget {
         //column that displays header text 'objectives/browse'
         Column(
           children: [
-            SizedBox(height: 10),
+            SizedBox(height: 2),
             Text('Objectives', style: TextStyle(fontSize: 35, fontWeight: FontWeight.w500, color: Global.secondaryTextColor)),
-            SizedBox(height: 10),
+            SizedBox(height: 2),
             Text('Browse', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Global.secondaryTextColor)),
           ],
         ),
-        //car rows that display closings
-        Padding(padding: EdgeInsets.fromLTRB(0, 28, 0, 0)),
+        Spacer(flex: 1),
         Container(
-          margin: EdgeInsets.symmetric(vertical: 30),
           //height of the cards. I dont know why the cards dont correlate with the defined height and width of the
           //variables provided in the custom widget
-          height: 185.0,
+          height: 185,
           child: ListView(
             scrollDirection: Axis.horizontal,
             controller: _controller,
@@ -47,7 +45,8 @@ class HomeView extends StatelessWidget {
               closingCardsWidget(color: Colors.red.shade700, transparent: false),
             ].toList(),
           ),
-        )
+        ),
+        Spacer(flex: 1)
       ],
     );
   }
@@ -57,7 +56,6 @@ Padding closingCardsWidget({color: Colors, transparent: bool}) {
   return Padding(
     padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
     child: Container(
-      height: 200,
       width: transparent ? 40 : 163,
       child: Card(
         elevation: transparent ? 0.0 : 2.0,
@@ -69,21 +67,20 @@ Padding closingCardsWidget({color: Colors, transparent: bool}) {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(5, 45, 5, 14),
-              child: Container(
-                height: 80,
-                decoration: transparent
-                    ? null
-                    : BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/Aircraft_Jet_Engine.png'),
-                          fit: BoxFit.fitHeight,
-                        ),
+            Spacer(flex: 1),
+            Container(
+              height: 80,
+              decoration: transparent
+                  ? null
+                  : BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/Aircraft_Jet_Engine.png'),
+                        fit: BoxFit.fitHeight,
                       ),
-              ),
+                    ),
             ),
-            Text('Engine', style: TextStyle(color: transparent ? Colors.white.withOpacity(0) : Colors.white, fontWeight: FontWeight.w500))
+            Text('Engine', style: TextStyle(color: transparent ? Colors.white.withOpacity(0) : Colors.white, fontWeight: FontWeight.w500)),
+            Spacer(flex: 1)
           ],
         ),
       ),

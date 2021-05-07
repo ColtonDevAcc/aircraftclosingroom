@@ -21,9 +21,9 @@ class _LoginViewState extends State<LoginView> {
     HomeModel homeModel = new HomeModel();
     UserInfo user = UserInfo();
 
-    bool _logIn() {
-      user.userLogIn(userEmailAddress: emailTextController.text, userPassword: passwordTextController.text);
-      if (user.accepteduser == true) {
+    Future<bool> _logIn() async {
+      await user.userLogIn(userEmailAddress: emailTextController.text, userPassword: passwordTextController.text);
+      if (user.customerName != null) {
         return true;
       } else {
         return false;
@@ -90,11 +90,12 @@ class _LoginViewState extends State<LoginView> {
                 hasBorder: true,
                 buttonTitle: "Login",
                 onTapFunction: () async {
-                  await _logIn();
-                  if (user.accepteduser == true) {
+                  bool userlogedin = await _logIn();
+                  if (userlogedin == true) {
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainView()));
                   } else {
-                    print('flase: (((((((((((((((((');
+                    badLoginDialogBox();
+                    print('wrong pass or email');
                   }
                 },
               ),
@@ -106,4 +107,17 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
+}
+
+AlertDialog badLoginDialogBox() {
+  return AlertDialog(
+    title: Text('Your email or password was incorrect'),
+    content: Text('Okay :('),
+    actions: [
+      TextButton(
+        onPressed: () {},
+        child: Text('okay :('),
+      )
+    ],
+  );
 }

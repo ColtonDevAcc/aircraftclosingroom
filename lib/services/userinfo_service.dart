@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:aircraftclosingroom/models/ClosingList.dart';
 import 'package:dio/dio.dart';
 import 'package:recursive_regex/recursive_regex.dart';
 
@@ -19,8 +22,9 @@ class UserInfo {
         data: {'UserName': userEmailAddress, 'Password': userPassword},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
+
       this.userSecretKey = response;
-    } catch (e) {} finally {
+
       var userInfo = await Dio().get("http://aicvirtualclosings.com/api/mobile/userinfo/${this.userSecretKey}");
       String userRawInfo = userInfo.data[0].toString();
       this.customerID = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'CustomerID: ', endDelimiter: r', CustomerName');
@@ -29,12 +33,12 @@ class UserInfo {
       this.email = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'Email: ', endDelimiter: r', PhotoIdRequired');
       this.photoIdRequired = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'PhotoIdRequired: ', endDelimiter: r', PhotoIdOnFile');
       this.photoIdOnFile = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'PhotoIdOnFile: ', endDelimiter: r'}');
+
+      Map<String, dynamic> closingListMap = jsonDecode('http://aicvirtualclosings.com/api/mobile/closings/${this.userSecretKey}');
+      var closingList = ClosingList.fromJson(closingListMap);
+      print(closingList);
+    } catch (e) {} finally {
       print('user API loaded');
-      print(this.customerID);
-      print(this.customerName);
-      print(this.email);
-      print(this.photoIdRequired);
-      print(this.photoIdOnFile);
       this.accepteduser = true;
     }
   }
