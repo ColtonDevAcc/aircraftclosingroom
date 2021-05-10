@@ -20,7 +20,7 @@ Card smallHorizontalFeaturedCardWidget({color: Color, title: String, icon: Icons
         child: Icon(
           icon,
           size: 35,
-          color: Global.secondaryColor,
+          color: Global.primaryColor,
         ),
       ),
       contentPadding: EdgeInsets.all(5),

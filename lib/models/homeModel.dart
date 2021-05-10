@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 
 class HomeModel extends ChangeNotifier {
   //password is visable ?? the user must set this as activated by clicking the visable icon
-
   bool _obscurePass = false;
 
   set setObscurePass(bool input) {

@@ -9,9 +9,9 @@ class UserInfo {
   static String customerName = 'empty';
   static var companyName;
   static var email;
-  static var photoIdRequired;
-  static var photoIdOnFile;
-  static var accepteduser;
+  static String photoIdRequired = 'Empty';
+  static String photoIdOnFile = 'Empty';
+  static bool accepteduser = false;
 
   dynamic userSecretKey = 'super secret key';
 
@@ -47,7 +47,7 @@ class UserInfo {
     email = emailAddress;
   }
 
-  set setIsPhotoIdRequired(bool photoIdRequired) {
+  set setIsPhotoIdRequired(String photoIdRequired) {
     photoIdOnFile = photoIdRequired;
   }
 
@@ -55,16 +55,28 @@ class UserInfo {
     this.setIsPhotoIdOnFile = isPhotoIdRequired;
   }
 
-  bool get getIsPhotoIdOnFile {
+  String get getIsPhotoIdOnFile {
     return photoIdOnFile;
   }
 
-  bool get getIsPhotoIdRequired {
+  String get getIsPhotoIdRequired {
     return photoIdOnFile;
   }
 
   String get getCustomerName {
     return customerName;
+  }
+
+  String get getCustomerId {
+    return customerID;
+  }
+
+  String get getCustomerCompany {
+    return companyName;
+  }
+
+  String get getCustomerEmail {
+    return email;
   }
 
   String parseUserInfoString({jsonString: String, startDelimiter: String, endDelimiter: String}) {
