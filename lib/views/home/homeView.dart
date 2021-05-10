@@ -1,4 +1,5 @@
 import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/services/userinfo_service.dart';
 import 'package:aircraftclosingroom/widgets/FeaturedCardWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +12,12 @@ class HomeView extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height.toDouble();
     double screenWidth = MediaQuery.of(context).size.height.toDouble();
 
+    UserInfo _user = UserInfo();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        largeFeaturedCardWidget(screenHeight: screenHeight / 1.3, screenWidth: screenWidth / 3.5, title: 'Your Closings'),
+        largeFeaturedCardWidget(screenHeight: screenHeight / 1.3, screenWidth: screenWidth / 3.5, title: '${_user.getCustomerName}\'s Closings'),
         //column that displays header text 'objectives/browse'
         Column(
           children: [

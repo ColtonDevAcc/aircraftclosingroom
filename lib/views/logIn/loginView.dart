@@ -19,11 +19,11 @@ class _LoginViewState extends State<LoginView> {
     final passwordTextController = new TextEditingController();
 
     HomeModel homeModel = new HomeModel();
-    UserInfo user = UserInfo();
+    UserInfo _user = UserInfo();
 
     Future<bool> _logIn() async {
-      await user.userLogIn(userEmailAddress: emailTextController.text, userPassword: passwordTextController.text);
-      if (user.customerName != null) {
+      await _user.userLogIn(userEmailAddress: emailTextController.text, userPassword: passwordTextController.text);
+      if (_user.getCustomerName != 'empty') {
         return true;
       } else {
         return false;

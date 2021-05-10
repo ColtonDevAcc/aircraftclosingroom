@@ -1,4 +1,3 @@
-import 'package:aircraftclosingroom/core/global.dart';
 import 'package:aircraftclosingroom/widgets/FeaturedCardWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +19,7 @@ class UserInfoView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
           child: Row(
-            children: [
-              Row(
-                children: [
-                  Text('Your account information', style: TextStyle(color: Global.secondaryTextColor)),
-                ],
-              ),
-            ],
+            children: [],
           ),
         )
       ],

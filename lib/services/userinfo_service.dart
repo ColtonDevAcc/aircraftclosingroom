@@ -5,13 +5,13 @@ import 'package:dio/dio.dart';
 import 'package:recursive_regex/recursive_regex.dart';
 
 class UserInfo {
-  var customerID;
-  var customerName;
-  var companyName;
-  var email;
-  var photoIdRequired;
-  var photoIdOnFile;
-  var accepteduser;
+  static var customerID;
+  static String customerName = 'empty';
+  static var companyName;
+  static var email;
+  static var photoIdRequired;
+  static var photoIdOnFile;
+  static var accepteduser;
 
   dynamic userSecretKey = 'super secret key';
 
@@ -27,20 +27,44 @@ class UserInfo {
 
       var userInfo = await Dio().get("http://aicvirtualclosings.com/api/mobile/userinfo/${this.userSecretKey}");
       String userRawInfo = userInfo.data[0].toString();
-      this.customerID = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'CustomerID: ', endDelimiter: r', CustomerName');
-      this.customerName = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'CustomerName: ', endDelimiter: r', CompanyName');
-      this.companyName = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'CompanyName: ', endDelimiter: r', Email');
-      this.email = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'Email: ', endDelimiter: r', PhotoIdRequired');
-      this.photoIdRequired = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'PhotoIdRequired: ', endDelimiter: r', PhotoIdOnFile');
-      this.photoIdOnFile = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'PhotoIdOnFile: ', endDelimiter: r'}');
+      customerID = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'CustomerID: ', endDelimiter: r', CustomerName');
+      customerName = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'CustomerName: ', endDelimiter: r', CompanyName');
+      companyName = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'CompanyName: ', endDelimiter: r', Email');
+      email = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'Email: ', endDelimiter: r', PhotoIdRequired');
+      photoIdRequired = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'PhotoIdRequired: ', endDelimiter: r', PhotoIdOnFile');
+      photoIdOnFile = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'PhotoIdOnFile: ', endDelimiter: r'}');
 
       Map<String, dynamic> closingListMap = jsonDecode('http://aicvirtualclosings.com/api/mobile/closings/${this.userSecretKey}');
       var closingList = ClosingList.fromJson(closingListMap);
       print(closingList.toString());
     } catch (e) {} finally {
       print('user API loaded');
-      this.accepteduser = true;
+      accepteduser = true;
     }
+  }
+
+  set setUserEmailAddress(String emailAddress) {
+    email = emailAddress;
+  }
+
+  set setIsPhotoIdRequired(bool photoIdRequired) {
+    photoIdOnFile = photoIdRequired;
+  }
+
+  set setIsPhotoIdOnFile(bool isPhotoIdRequired) {
+    this.setIsPhotoIdOnFile = isPhotoIdRequired;
+  }
+
+  bool get getIsPhotoIdOnFile {
+    return photoIdOnFile;
+  }
+
+  bool get getIsPhotoIdRequired {
+    return photoIdOnFile;
+  }
+
+  String get getCustomerName {
+    return customerName;
   }
 
   String parseUserInfoString({jsonString: String, startDelimiter: String, endDelimiter: String}) {
