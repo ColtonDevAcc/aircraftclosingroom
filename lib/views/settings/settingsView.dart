@@ -6,12 +6,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final appStateProvider = ChangeNotifierProvider((ref) => AppStateNotifier());
+
 class SettingsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    final _darkModeEnabled = watch(AppStateNotifier.appStateNotifier);
+    final appStateNotifier = watch(appStateProvider);
 
     return Column(
       children: [
@@ -31,10 +33,10 @@ class SettingsView extends ConsumerWidget {
                   title: 'Dark Mode',
                   color: Global.secondaryButton,
                   trailingWidget: Switch(
-                    value: (_darkModeEnabled.isDarkMode),
+                    value: (appStateNotifier.getDarkModeEnabled),
                     activeColor: Global.primaryColor,
                     inactiveTrackColor: Global.secondaryTextColor,
-                    onChanged: (bool value) => AppStateNotifier.appStateNotifier,
+                    onChanged: (value) => context.read(appStateProvider).setDarkModeIsEnabled(value),
                   ),
                   icon: Icons.dark_mode_outlined)
             ],

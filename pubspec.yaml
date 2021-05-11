@@ -14,6 +14,7 @@ dependencies:
   rive: ^0.7.3
   flutter_snake_navigationbar: ^0.5.0
   flutter_riverpod: ^0.14.0+3
+  state_notifier: ^0.7.0
   http: ^0.13.3
   dio: ^4.0.0
   recursive_regex: ^1.0.0
