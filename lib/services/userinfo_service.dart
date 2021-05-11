@@ -12,8 +12,7 @@ class UserInfo {
   static String photoIdRequired = 'Empty';
   static String photoIdOnFile = 'Empty';
   static bool accepteduser = false;
-
-  dynamic userSecretKey = 'super secret key';
+  static dynamic userSecretKey = 'cb4a2928-f601-4ed4-8c05-3f44b5aee2a1';
 
   userLogIn({userEmailAddress: String, userPassword: String}) async {
     try {
@@ -23,9 +22,9 @@ class UserInfo {
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
 
-      this.userSecretKey = response;
+      userSecretKey = response;
 
-      var userInfo = await Dio().get("http://aicvirtualclosings.com/api/mobile/userinfo/${this.userSecretKey}");
+      var userInfo = await Dio().get("http://aicvirtualclosings.com/api/mobile/userinfo/$userSecretKey");
       String userRawInfo = userInfo.data[0].toString();
       customerID = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'CustomerID: ', endDelimiter: r', CustomerName');
       customerName = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'CustomerName: ', endDelimiter: r', CompanyName');
@@ -34,7 +33,7 @@ class UserInfo {
       photoIdRequired = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'PhotoIdRequired: ', endDelimiter: r', PhotoIdOnFile');
       photoIdOnFile = parseUserInfoString(jsonString: userRawInfo, startDelimiter: r'PhotoIdOnFile: ', endDelimiter: r'}');
 
-      Map<String, dynamic> closingListMap = jsonDecode('http://aicvirtualclosings.com/api/mobile/closings/${this.userSecretKey}');
+      Map<String, dynamic> closingListMap = jsonDecode('http://aicvirtualclosings.com/api/mobile/closings/$userSecretKey}');
       var closingList = ClosingList.fromJson(closingListMap);
       print(closingList.toString());
     } catch (e) {} finally {
