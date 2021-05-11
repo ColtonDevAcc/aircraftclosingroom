@@ -1,20 +1,17 @@
 import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/services/appStateNotifier.dart';
 import 'package:aircraftclosingroom/widgets/FeaturedCardWidget.dart';
 import 'package:aircraftclosingroom/widgets/smallHorizontalCardWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SettingsView extends StatefulWidget {
+class SettingsView extends ConsumerWidget {
   @override
-  _SettingsViewState createState() => _SettingsViewState();
-}
-
-class _SettingsViewState extends State<SettingsView> {
-  bool _switchValue = false;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    final _darkModeEnabled = watch(AppStateNotifier.appStateNotifier);
 
     return Column(
       children: [
@@ -34,15 +31,11 @@ class _SettingsViewState extends State<SettingsView> {
                   title: 'Dark Mode',
                   color: Global.secondaryButton,
                   trailingWidget: Switch(
-                      value: (_switchValue),
-                      activeColor: Global.secondaryTextColor,
-                      inactiveTrackColor: Global.secondaryColor,
-                      onChanged: (bool darkmode) {
-                        setState(() {
-                          print(_switchValue);
-                          _switchValue = darkmode;
-                        });
-                      }),
+                    value: (_darkModeEnabled.isDarkMode),
+                    activeColor: Global.primaryColor,
+                    inactiveTrackColor: Global.secondaryTextColor,
+                    onChanged: (bool value) => AppStateNotifier.appStateNotifier,
+                  ),
                   icon: Icons.dark_mode_outlined)
             ],
           ),
