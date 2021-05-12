@@ -62,7 +62,7 @@ class _LoginViewState extends State<LoginView> {
                     obscure: homeModel.obscurePass,
                     prefixIcon: Icons.vpn_key,
                     suffixIconData: homeModel.obscurePass ? Icons.visibility : Icons.visibility_off,
-                    onTextChanged: (value) {}, //TODO: ADD AUTH
+                    onTextChanged: (value) {},
                     controller: passwordTextController,
                     onSuffixiconTap: () {
                       homeModel.obscurePass ? homeModel.setObscurePass = false : homeModel.setObscurePass = true;

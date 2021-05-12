@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'dart:math';
+
 import 'package:aircraftclosingroom/core/global.dart';
 import 'package:aircraftclosingroom/models/ClosingList.dart';
 import 'package:aircraftclosingroom/services/userinfo_service.dart';
+import 'package:aircraftclosingroom/views/home/closingCardView.dart';
 import 'package:aircraftclosingroom/widgets/FeaturedCardWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +19,7 @@ class HomeView extends StatelessWidget {
 
     double screenHeight = MediaQuery.of(context).size.height.toDouble();
     double screenWidth = MediaQuery.of(context).size.height.toDouble();
+    List<Color> randomColorList = [Global.secondaryAccent, Global.primaryAccent, Global.thirdAccent];
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -49,8 +53,19 @@ class HomeView extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return closingCardsWidget(
                         transparent: false,
-                        color: snapshot.data[index].status == 'Open' ? Colors.green : Colors.red,
-                        title: snapshot.data[index].agentName.toString(),
+                        context: context,
+                        featuredPicture: snapshot.data[index].objType.toString() == 'Airframe' ? AssetImage('assets/images/airframe.png') : AssetImage('assets/images/Aircraft_Jet_Engine.png'),
+                        color: randomColorList[Random().nextInt(3)],
+                        title: snapshot.data[index].objType.toString() + " " + snapshot.data[index].sNumber.toString(),
+                        closingID: snapshot.data[index].closingID,
+                        tailNumber: snapshot.data[index].tailNumber,
+                        make: snapshot.data[index].make,
+                        model: snapshot.data[index].model,
+                        sNumber: snapshot.data[index].sNumber,
+                        orderDate: snapshot.data[index].orderDate,
+                        agentName: snapshot.data[index].agentName,
+                        status: snapshot.data[index].status,
+                        invObjType: snapshot.data[index].objType,
                       );
                     },
                   ),
@@ -75,18 +90,13 @@ class HomeView extends StatelessWidget {
 }
 
 Future<List<ClosingList>> _closingList() async {
-  print('called closing list build');
   Uri getURL = Uri.parse('https://aicvirtualclosings.com/api/mobile/closings/${UserInfo.userSecretKey}');
-  print(getURL);
   var data = await http.get(getURL);
-  print(data.body);
   var jsonData = json.decode(data.body);
-  print(jsonData);
-
   List<ClosingList> closingList = [];
 
   for (var closing in jsonData) {
-    ClosingList ClosingListNew = ClosingList(
+    ClosingList closingListNew = ClosingList(
       closing['ClosingID'],
       closing['TailNumber'],
       closing['Make'],
@@ -97,55 +107,67 @@ Future<List<ClosingList>> _closingList() async {
       closing['Status'],
       closing['InvObjType'],
     );
-    closingList.add(ClosingListNew);
-    print('loaded');
+    closingList.add(closingListNew);
   }
+
   return closingList;
 }
 
-Padding closingCardsWidget({color: Colors, transparent: bool, title: String}) {
+Padding closingCardsWidget({context: dynamic, color: Colors, transparent: bool, title: String, featuredPicture: AssetImage, closingID: int, tailNumber: String, make: String, model: String, sNumber: String, orderDate: String, agentName: String, status: String, invObjType: String}) {
   return Padding(
     padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
     child: Container(
       width: transparent ? 40 : 163,
-      child: Card(
-        elevation: transparent ? 0.0 : 2.0,
-        shadowColor: transparent ? Colors.white.withOpacity(0) : Colors.black,
-        color: transparent ? Colors.white.withOpacity(0) : color,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Spacer(flex: 1),
-            Container(
-              height: 80,
-              decoration: transparent
-                  ? null
-                  : BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/Aircraft_Jet_Engine.png'),
-                        fit: BoxFit.fitHeight,
-                      ),
-                    ),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ClosingCardView(
+                closingID: closingID,
+                tailNumber: tailNumber,
+                make: make,
+                model: model,
+                sNumber: sNumber,
+                orderDate: orderDate,
+                agentName: agentName,
+                status: status,
+                invObjType: invObjType,
+                title: title,
+                color: color,
+              ),
             ),
-            Text(title, style: TextStyle(color: transparent ? Colors.white.withOpacity(0) : Colors.white, fontWeight: FontWeight.w500)),
-            Spacer(flex: 1)
-          ],
+          );
+        },
+        child: Card(
+          elevation: transparent ? 0.0 : 2.0,
+          shadowColor: transparent ? Colors.white.withOpacity(0) : Colors.black,
+          color: transparent ? Colors.white.withOpacity(0) : color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Spacer(flex: 2),
+              Container(
+                height: 80,
+                decoration: transparent
+                    ? null
+                    : BoxDecoration(
+                        image: DecorationImage(
+                          image: featuredPicture,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+              ),
+              Spacer(flex: 1),
+              Text(title, style: TextStyle(color: transparent ? Colors.white.withOpacity(0) : Colors.white, fontWeight: FontWeight.w500)),
+              Spacer(flex: 2)
+            ],
+          ),
         ),
       ),
     ),
   );
 }
-
-/*
-                      snapshot.data[index].closingID,
-                      snapshot.data[index].tailNumber,
-                      snapshot.data[index].make,
-                      snapshot.data[index].model,
-                      snapshot.data[index].sNumber,
-                      snapshot.data[index].orderDate,
-                      snapshot.data[index].agentName,
-                      snapshot.data[index].status,
-*/ //user info listed above

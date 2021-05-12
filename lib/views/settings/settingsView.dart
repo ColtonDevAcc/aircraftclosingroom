@@ -28,7 +28,6 @@ class SettingsView extends ConsumerWidget {
               smallHorizontalFeaturedCardWidget(title: 'Support', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.support_agent_outlined),
               smallHorizontalFeaturedCardWidget(title: 'About us', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.info_outline_rounded),
               smallHorizontalFeaturedCardWidget(title: 'Developer Mode', color: Global.secondaryButton, trailingWidget: Icon(Icons.arrow_forward_ios), icon: Icons.developer_mode_outlined),
-              //dark mode widget.. set through set state TODO: set state in a provider package
               smallHorizontalFeaturedCardWidget(
                   title: 'Dark Mode',
                   color: Global.secondaryButton,
