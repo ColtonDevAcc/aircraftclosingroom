@@ -8,7 +8,7 @@ class Folder {
   final String? customLabel;
 
   Folder.fromJson(Map<String, dynamic> json)
-      : escrowCategoryTransactionId = json['EscrowCategoryTransactionId'],
+      : escrowCategoryTransactionId = json['EscrowCategoryTransactionsId'],
         name = json['Name'],
         received = json['Received'],
         dateReceived = json['DateReceived'],

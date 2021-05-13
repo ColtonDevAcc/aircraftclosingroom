@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:aircraftclosingroom/core/global.dart';
 import 'package:aircraftclosingroom/models/folder.dart';
 import 'package:aircraftclosingroom/models/players.dart';
 import 'package:aircraftclosingroom/services/userinfo_service.dart';
+import 'package:aircraftclosingroom/views/home/documentFolderView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -36,119 +36,95 @@ class ClosingCardView extends StatelessWidget {
         backgroundColor: color,
         title: Text(this.title!),
       ),
-      body: Column(
+      body: ListView(
         children: [
-          Text('Closing Details', style: TextStyle(color: Global.secondaryTextColor)),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Card(
-              elevation: 3,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              color: Global.secondaryButton,
-              child: Container(
-                margin: EdgeInsets.all(10),
-                width: _screenWidth,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('Closing ID:', style: TextStyle(color: Global.secondaryTextColor)),
-                    Text('$closingID', style: TextStyle(color: Global.bodyTextColor)),
-                    SizedBox(height: 10),
-                    Text('Tail Number:', style: TextStyle(color: Global.secondaryTextColor)),
-                    Text('$tailNumber', style: TextStyle(color: Global.bodyTextColor)),
-                    SizedBox(height: 10),
-                    Text('Make:', style: TextStyle(color: Global.secondaryTextColor)),
-                    Text('$make', style: TextStyle(color: Global.bodyTextColor)),
-                    SizedBox(height: 10),
-                    Text('Model:', style: TextStyle(color: Global.secondaryTextColor)),
-                    Text('$model', style: TextStyle(color: Global.bodyTextColor)),
-                    SizedBox(height: 10),
-                    Text('Serial Number:', style: TextStyle(color: Global.secondaryTextColor)),
-                    Text('$sNumber', style: TextStyle(color: Global.bodyTextColor)),
-                    SizedBox(height: 10),
-                    Text('Order Date:', style: TextStyle(color: Global.secondaryTextColor)),
-                    Text('$orderDate', style: TextStyle(color: Global.bodyTextColor)),
-                    SizedBox(height: 10),
-                    Text('Agent Name:', style: TextStyle(color: Global.secondaryTextColor)),
-                    Text('$agentName', style: TextStyle(color: Global.bodyTextColor)),
-                    SizedBox(height: 10),
-                    Text('Status:', style: TextStyle(color: Global.secondaryTextColor)),
-                    Text('$status', style: TextStyle(color: Global.bodyTextColor)),
-                    SizedBox(height: 10),
-                    Text('Part Type:', style: TextStyle(color: Global.secondaryTextColor)),
-                    Text('$invObjType', style: TextStyle(color: Global.bodyTextColor)),
-                    SizedBox(height: 10),
-                  ],
+          Column(
+            children: [
+              SizedBox(height: 10),
+              Text('Closing Details', style: TextStyle(color: Global.secondaryTextColor)),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  color: Global.secondaryButton,
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    width: _screenWidth,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Closing ID:', style: TextStyle(color: Global.secondaryTextColor)),
+                        Text('$closingID', style: TextStyle(color: Global.bodyTextColor)),
+                        SizedBox(height: 10),
+                        Text('Tail Number:', style: TextStyle(color: Global.secondaryTextColor)),
+                        Text('$tailNumber', style: TextStyle(color: Global.bodyTextColor)),
+                        SizedBox(height: 10),
+                        Text('Make:', style: TextStyle(color: Global.secondaryTextColor)),
+                        Text('$make', style: TextStyle(color: Global.bodyTextColor)),
+                        SizedBox(height: 10),
+                        Text('Model:', style: TextStyle(color: Global.secondaryTextColor)),
+                        Text('$model', style: TextStyle(color: Global.bodyTextColor)),
+                        SizedBox(height: 10),
+                        Text('Serial Number:', style: TextStyle(color: Global.secondaryTextColor)),
+                        Text('$sNumber', style: TextStyle(color: Global.bodyTextColor)),
+                        SizedBox(height: 10),
+                        Text('Order Date:', style: TextStyle(color: Global.secondaryTextColor)),
+                        Text('$orderDate', style: TextStyle(color: Global.bodyTextColor)),
+                        SizedBox(height: 10),
+                        Text('Agent Name:', style: TextStyle(color: Global.secondaryTextColor)),
+                        Text('$agentName', style: TextStyle(color: Global.bodyTextColor)),
+                        SizedBox(height: 10),
+                        Text('Status:', style: TextStyle(color: Global.secondaryTextColor)),
+                        Text('$status', style: TextStyle(color: Global.bodyTextColor)),
+                        SizedBox(height: 10),
+                        Text('Part Type:', style: TextStyle(color: Global.secondaryTextColor)),
+                        Text('$invObjType', style: TextStyle(color: Global.bodyTextColor)),
+                        SizedBox(height: 10),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Text('Players', style: TextStyle(color: Global.secondaryTextColor)),
+              SizedBox(height: 10),
+              Container(
+                child: FutureBuilder(
+                    future: _playerList(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.data != null) {
+                        return Container(
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return closingPlayersList(
+                                name: snapshot.data[index].customerName,
+                                color: index.toDouble() % 2.0 != 0 ? Colors.white.withOpacity(0) : color,
+                                playerRole: snapshot.data[index].playerRole,
+                                screenWidth: _screenWidth,
+                                closingID: snapshot.data[index].closingID,
+                                email: snapshot.data[index].email,
+                                companyName: snapshot.data[index].companyName,
+                                closingPlayerID: snapshot.data[index].closingPlayerID,
+                              );
+                            },
+                          ),
+                        );
+                      } else {
+                        return Center(
+                          child: Container(
+                            child: Text('loading player list...'),
+                          ),
+                        );
+                      }
+                    } // else here ,
+                    ),
+              ),
+            ],
           ),
-          Container(
-            height: 185,
-            child: FutureBuilder(
-                future: _playerList(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.data != null) {
-                    return Container(
-                      height: 185,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        controller: _controller,
-                        physics: AlwaysScrollableScrollPhysics(),
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return closingPlayersList(
-                            name: snapshot.data[index].customerName,
-                            color: color,
-                            playerRole: snapshot.data[index].playerRole,
-                          );
-                        },
-                      ),
-                    );
-                  } else {
-                    return Center(
-                      child: Container(
-                        child: Text('loading player list...'),
-                      ),
-                    );
-                  }
-                } // else here ,
-                ),
-          ),
-          Container(
-            height: 90,
-            child: FutureBuilder(
-                future: _documentFolder(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.data != null) {
-                    return Container(
-                      height: 185,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        controller: _controller,
-                        physics: AlwaysScrollableScrollPhysics(),
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return documentList(
-                            color: color,
-                            folderName: snapshot.data[index].customLabel.toString(),
-                            dateRecieved: snapshot.data[index].dateReceived.toString(),
-                            folderID: snapshot.data[index].escrowCategoryTransactionId.toString(),
-                            context: context,
-                          );
-                        },
-                      ),
-                    );
-                  } else {
-                    return Center(
-                      child: Container(
-                        child: Text('loading document folder list...'),
-                      ),
-                    );
-                  }
-                } // else here ,
-                ),
-          )
         ],
       ),
     );
@@ -181,8 +157,8 @@ class ClosingCardView extends StatelessWidget {
   }
 }
 
-Future<List<Folder>> _documentFolder() async {
-  Uri getURL = Uri.parse('https://aicvirtualclosings.com/api/mobile/PlayerCategories/${UserInfo.customerID}/${UserInfo.userSecretKey}');
+Future<List<Folder>> _documentFolder({playerID: String}) async {
+  Uri getURL = Uri.parse('https://aicvirtualclosings.com/api/mobile/PlayerCategories/$playerID/${UserInfo.userSecretKey}');
   var data = await http.get(getURL);
   var jsonData = json.decode(data.body);
   List<Folder> documentFolderList = [];
@@ -204,26 +180,84 @@ Future<List<Folder>> _documentFolder() async {
 //=============================================
 //player profiles
 //=============================================
-Padding closingPlayersList({context: dynamic, color: Color, name: String, playerRole: String}) {
+Padding closingPlayersList({context: dynamic, color: Color, name: String, playerRole: String, screenWidth: double, closingID: String, closingPlayerID: String, companyName: String, email: String}) {
   return Padding(
     padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
     child: Container(
-      width: 150,
       child: InkWell(
         child: Card(
-          elevation: 2.0,
-          shadowColor: Colors.black,
-          color: color == Global.primaryAccent ? Global.secondaryAccent : Global.secondaryAccent,
-          shape: CircleBorder(),
+          shadowColor: Colors.black.withOpacity(0),
+          color: color,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Center(
                 child: Column(
                   children: [
-                    Text(name, style: TextStyle(color: Global.primaryTextColor)),
-                    Text('-- ' + playerRole + ' --', style: TextStyle(color: Global.primaryTextColor)),
+                    SizedBox(height: 10),
+                    Text(name, style: TextStyle(color: color == Colors.white.withOpacity(0) ? Global.secondaryTextColor : Global.primaryTextColor)),
+                    Text('-- ' + playerRole + ' --', style: TextStyle(color: color == Colors.white.withOpacity(0) ? Global.secondaryTextColor : Global.primaryTextColor)),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Card(
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        color: Global.secondaryButton,
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          width: screenWidth,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text('Name:', style: TextStyle(color: Global.secondaryTextColor)),
+                              Text('$name', style: TextStyle(color: Global.bodyTextColor)),
+                              SizedBox(height: 10),
+                              Text('Email:', style: TextStyle(color: Global.secondaryTextColor)),
+                              Text('$email', style: TextStyle(color: Global.bodyTextColor)),
+                              SizedBox(height: 10),
+                              Text('companyName:', style: TextStyle(color: Global.secondaryTextColor)),
+                              Text('$companyName', style: TextStyle(color: Global.bodyTextColor)),
+                              SizedBox(height: 10),
+                              //this is the document text ('Document')
+                              Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Documents', style: TextStyle(color: Global.secondaryTextColor))]),
+                              FutureBuilder(
+                                future: _documentFolder(playerID: closingPlayerID),
+                                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                                  if (snapshot.data != null) {
+                                    return Container(
+                                      child: ListView.builder(
+                                        physics: NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: snapshot.data.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          return playerDocumentList(
+                                            escrowCategoryTransactionID: 'ff',
+                                            folderName: snapshot.data[index].customLabel,
+                                            recieved: snapshot.data[index].received.toString(),
+                                            dateRecieved: snapshot.data[index].dateReceived.toString(),
+                                            folderID: snapshot.data[index].escrowCategoryTransactionId.toString(),
+                                            color: Colors.white,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  } else {
+                                    return Container(
+                                      child: Center(
+                                        child: Text('Loading player documents....'),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               )
@@ -238,34 +272,66 @@ Padding closingPlayersList({context: dynamic, color: Color, name: String, player
 //=============================================
 //document folders
 //=============================================
-Padding documentList({context: dynamic, color: Colors, folderName: String, dateRecieved: String, folderID: String}) {
+Padding playerDocumentList({color: Colors, folderName: String, dateRecieved: String, folderID: String, escrowCategoryTransactionID: String, recieved: String}) {
   return Padding(
     padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
     child: Container(
-      width: 300,
-      child: InkWell(
-        onTap: () {},
-        child: Card(
-          elevation: 2.0,
-          shadowColor: Colors.black,
-          color: color,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Spacer(flex: 1),
-              Text(folderName, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)),
-              Text('Date recived: ' + dateRecieved),
-              Text('Folder id: ' + folderID),
-              Spacer(flex: 2),
-            ],
-          ),
+      width: 50,
+      height: 90,
+      child: Card(
+        color: color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Spacer(flex: 1),
+            Text('Name: ' + folderName, style: TextStyle(color: Global.secondaryTextColor, fontWeight: FontWeight.w500)),
+            dateRecieved != 'null' ? Icon(Icons.done, color: Colors.green) : Icon(Icons.close, color: Colors.red),
+            Spacer(flex: 1),
+          ],
         ),
       ),
     ),
   );
 }
+
+/*
+Text('Document Folders', style: TextStyle(color: Global.secondaryTextColor)),
+              Container(
+                height: 90,
+                child: FutureBuilder(
+                    future: _documentFolder(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.data != null) {
+                        return Container(
+                          height: 185,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            controller: _controller,
+                            physics: AlwaysScrollableScrollPhysics(),
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return documentList(
+                                color: color,
+                                folderName: snapshot.data[index].customLabel.toString(),
+                                dateRecieved: snapshot.data[index].dateReceived.toString(),
+                                folderID: snapshot.data[index].escrowCategoryTransactionId.toString(),
+                                context: context,
+                              );
+                            },
+                          ),
+                        );
+                      } else {
+                        return Center(
+                          child: Container(
+                            child: Text('loading document folder list...'),
+                          ),
+                        );
+                      }
+                    } // else here ,
+                    ),
+              )
+*/
