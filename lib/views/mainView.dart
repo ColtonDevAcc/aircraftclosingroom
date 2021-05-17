@@ -1,4 +1,4 @@
-import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:aircraftclosingroom/views/home/homeView.dart';
 import 'package:aircraftclosingroom/views/settings/settingsView.dart';
 import 'package:aircraftclosingroom/views/userInfo/userInfoView.dart';
@@ -23,8 +23,8 @@ class _MainViewState extends State<MainView> {
     return Scaffold(
       bottomNavigationBar: SnakeNavigationBar.color(
         selectedItemColor: Colors.white,
-        unselectedItemColor: Global.secondaryTextColor,
-        snakeViewColor: Global.primaryColor,
+        unselectedItemColor: ThemeProvider.secondaryTextColor,
+        snakeViewColor: ThemeProvider.primaryColor,
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.settings_rounded), label: 'f'),

@@ -1,4 +1,4 @@
-import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
@@ -27,11 +27,11 @@ class TextFieldWidget extends StatelessWidget {
       onChanged: onTextChanged,
       controller: controller,
       style: TextStyle(
-        color: Global.primaryColor,
+        color: ThemeProvider.primaryColor,
         fontSize: 14.0,
       ),
       obscureText: obscure,
-      cursorColor: Global.primaryColor,
+      cursorColor: ThemeProvider.primaryColor,
       decoration: InputDecoration(
         labelText: hintText,
         prefix: Padding(
@@ -42,7 +42,7 @@ class TextFieldWidget extends StatelessWidget {
               Icon(
                 prefixIcon,
                 size: 18,
-                color: Global.primaryColor,
+                color: ThemeProvider.primaryColor,
               ),
             ],
           ),
@@ -54,7 +54,7 @@ class TextFieldWidget extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Global.primaryColor),
+          borderSide: BorderSide(color: ThemeProvider.primaryColor),
         ),
         //detecting icon push
         suffixIcon: GestureDetector(
@@ -62,10 +62,10 @@ class TextFieldWidget extends StatelessWidget {
           child: Icon(
             suffixIconData,
             size: 18,
-            color: Global.secondaryColor,
+            color: ThemeProvider.secondaryColor,
           ),
         ),
-        labelStyle: TextStyle(color: Global.primaryColor),
+        labelStyle: TextStyle(color: ThemeProvider.primaryColor),
         focusColor: Colors.orange,
       ),
     );

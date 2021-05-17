@@ -1,4 +1,4 @@
-import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:aircraftclosingroom/services/userinfo_service.dart';
 import 'package:aircraftclosingroom/widgets/FeaturedCardWidget.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,39 +17,39 @@ class UserInfoView extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            largeFeaturedCardWidget(screenWidth: _screenWidth * .1, screenHeight: _screenHeight / 12, title: 'User Information'),
+            largeFeaturedCardWidget(screenWidth: _screenWidth * .1, screenHeight: _screenHeight / 12, title: 'User Information', useAsAppBar: false, displayImage: false),
             Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: Column(
                 children: [
-                  Text('Your Information', style: TextStyle(color: Global.secondaryTextColor)),
+                  Text('Your Information', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
                   Card(
                     elevation: 3,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    color: Global.secondaryButton,
+                    color: ThemeProvider.secondaryButton,
                     child: Container(
                       margin: EdgeInsets.all(10),
                       width: _screenWidth,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('User ID:', style: TextStyle(color: Global.secondaryTextColor)),
-                          Text('${_user.getCustomerId}', style: TextStyle(color: Global.bodyTextColor)),
+                          Text('User ID:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                          Text('${_user.getCustomerId}', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                           SizedBox(height: 10),
-                          Text('Full Name:', style: TextStyle(color: Global.secondaryTextColor)),
-                          Text('${_user.getCustomerName}', style: TextStyle(color: Global.bodyTextColor)),
+                          Text('Full Name:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                          Text('${_user.getCustomerName}', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                           SizedBox(height: 10),
-                          Text('Company:', style: TextStyle(color: Global.secondaryTextColor)),
-                          Text('${_user.getCustomerCompany}', style: TextStyle(color: Global.bodyTextColor)),
+                          Text('Company:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                          Text('${_user.getCustomerCompany}', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                           SizedBox(height: 10),
-                          Text('Email:', style: TextStyle(color: Global.secondaryTextColor)),
-                          Text('${_user.getCustomerEmail}', style: TextStyle(color: Global.bodyTextColor)),
+                          Text('Email:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                          Text('${_user.getCustomerEmail}', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                           SizedBox(height: 10),
-                          Text('Photo ID on File?:', style: TextStyle(color: Global.secondaryTextColor)),
-                          Text('${_user.getIsPhotoIdOnFile}', style: TextStyle(color: Global.bodyTextColor)),
+                          Text('Photo ID on File?:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                          Text('${_user.getIsPhotoIdOnFile}', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                           SizedBox(height: 10),
-                          Text('Photo ID Required:', style: TextStyle(color: Global.secondaryTextColor)),
-                          Text('${_user.getIsPhotoIdRequired}', style: TextStyle(color: Global.bodyTextColor)),
+                          Text('Photo ID Required:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                          Text('${_user.getIsPhotoIdRequired}', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                           SizedBox(height: 10),
                         ],
                       ),
@@ -59,24 +59,24 @@ class UserInfoView extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            Text('Your Prefrences', style: TextStyle(color: Global.secondaryTextColor)),
+            Text('Your Prefrences', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
             Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: Card(
                 elevation: 3,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                color: Global.secondaryButton,
+                color: ThemeProvider.secondaryButton,
                 child: Container(
                   margin: EdgeInsets.all(10),
                   width: _screenWidth,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('Notifications:', style: TextStyle(color: Global.secondaryTextColor)),
-                      Text('off', style: TextStyle(color: Global.bodyTextColor)),
+                      Text('Notifications:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                      Text('off', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                       SizedBox(height: 10),
-                      Text('Electronic Notifications (sms, emails, and other):', style: TextStyle(color: Global.secondaryTextColor)),
-                      Text('off', style: TextStyle(color: Global.bodyTextColor)),
+                      Text('Electronic Notifications (sms, emails, and other):', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                      Text('off', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                     ],
                   ),
                 ),

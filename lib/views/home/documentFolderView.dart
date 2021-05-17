@@ -1,4 +1,4 @@
-import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -24,30 +24,30 @@ class DocumentFolderView extends StatelessWidget {
         body: Column(
           children: [
             SizedBox(height: 10),
-            Text('Folder Details', style: TextStyle(color: Global.secondaryTextColor)),
+            Text('Folder Details', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
             Padding(
               padding: EdgeInsets.all(10),
               child: Card(
                 elevation: 3,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                color: Global.secondaryButton,
+                color: ThemeProvider.secondaryButton,
                 child: Container(
                   margin: EdgeInsets.all(10),
                   width: _screenWidth,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('Escrow category transaction ID:', style: TextStyle(color: Global.secondaryTextColor)),
-                      Text('$escrowCategoryTransactionId', style: TextStyle(color: Global.bodyTextColor)),
+                      Text('Escrow category transaction ID:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                      Text('$escrowCategoryTransactionId', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                       SizedBox(height: 10),
-                      Text('Folder name:', style: TextStyle(color: Global.secondaryTextColor)),
-                      Text('$name', style: TextStyle(color: Global.bodyTextColor)),
+                      Text('Folder name:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                      Text('$name', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                       SizedBox(height: 10),
-                      Text('Date Recieved:', style: TextStyle(color: Global.secondaryTextColor)),
-                      Text('$dateRecieved', style: TextStyle(color: Global.bodyTextColor)),
+                      Text('Date Recieved:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                      Text('$dateRecieved', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                       SizedBox(height: 10),
-                      Text('Custom Label:', style: TextStyle(color: Global.secondaryTextColor)),
-                      Text('$customLabel', style: TextStyle(color: Global.bodyTextColor)),
+                      Text('Custom Label:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                      Text('$customLabel', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                       SizedBox(height: 10),
                     ],
                   ),

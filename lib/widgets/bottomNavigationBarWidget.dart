@@ -1,4 +1,4 @@
-import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
@@ -25,7 +25,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       padding: EdgeInsets.all(10),
       snakeViewColor: Colors.white,
-      selectedItemColor: Global.primaryColor,
+      selectedItemColor: ThemeProvider.primaryColor,
       unselectedItemColor: Colors.red,
       showSelectedLabels: true,
       showUnselectedLabels: false,

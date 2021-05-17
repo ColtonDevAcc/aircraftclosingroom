@@ -1,13 +1,13 @@
-import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Padding largeFeaturedCardWidget({screenWidth: double, screenHeight: double, title: String, useAsAppBar: false}) {
+Padding largeFeaturedCardWidget({screenWidth: double, screenHeight: double, title: String, useAsAppBar: false, displayImage: bool}) {
   return Padding(
     padding: EdgeInsets.fromLTRB(screenWidth / 18, 0, screenWidth / 18, 5),
     child: Card(
       elevation: 8,
-      shadowColor: Global.secondaryTextColor,
+      shadowColor: ThemeProvider.secondaryTextColor,
       margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 16.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
@@ -24,11 +24,11 @@ Padding largeFeaturedCardWidget({screenWidth: double, screenHeight: double, titl
                 child: Row(
                   children: [
                     useAsAppBar ? Spacer(flex: 1) : Text(''), //i set this as a blank text widget because i cant return nothing :/
-                    useAsAppBar ? Icon(Icons.arrow_back_ios, color: Global.secondaryTextColor) : Spacer(flex: 1),
+                    useAsAppBar ? Icon(Icons.arrow_back_ios, color: ThemeProvider.secondaryTextColor) : Spacer(flex: 1),
                     Spacer(flex: 2),
-                    Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Global.secondaryTextColor)),
+                    Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: ThemeProvider.secondaryTextColor)),
                     Spacer(flex: 2),
-                    Icon(Icons.search, color: Global.secondaryTextColor),
+                    Icon(Icons.search, color: ThemeProvider.secondaryTextColor),
                     Spacer(flex: 1),
                   ],
                 ),
@@ -53,7 +53,13 @@ Padding largeFeaturedCardWidget({screenWidth: double, screenHeight: double, titl
                     ],
                   ),
                 )
-              : Text('') //i set this as a blank text widget because i cant return nothing :/
+              : displayImage
+                  ? Image.asset(
+                      'assets/images/cessnaFrontView.png',
+                      scale: 6,
+                      fit: BoxFit.fill,
+                    )
+                  : Text('')
         ],
       ),
     ),

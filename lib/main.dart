@@ -1,28 +1,35 @@
-import 'package:aircraftclosingroom/services/appStateNotifier.dart';
+import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:aircraftclosingroom/views/logIn/loginView.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-//are you packaging on a development build?.. if so change to true ELSE false
-final appStateProvider = ChangeNotifierProvider((ref) => AppStateNotifier());
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ProviderScope(
-      child: MyApp(),
-    ),
+    MyApp(),
   );
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final ThemeData theme = watch(appStateProvider).getTheme;
+  _MyAppState createState() => _MyAppState();
+}
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginView(),
-      theme: theme,
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<ThemeProvider>(
+      create: (_) => ThemeProvider(),
+      child: Builder(
+        builder: (BuildContext context) {
+          final theme = Provider.of<ThemeProvider>(context);
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Aircraft Closing Room',
+            theme: theme.getTheme,
+            home: LoginView(),
+          );
+        },
+      ),
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:aircraftclosingroom/models/homeModel.dart';
 import 'package:aircraftclosingroom/services/userinfo_service.dart';
 import 'package:aircraftclosingroom/views/mainView.dart';
@@ -78,7 +78,7 @@ class _LoginViewState extends State<LoginView> {
                     child: Text(
                       'Forgot password?',
                       style: TextStyle(
-                        color: Global.primaryColor,
+                        color: ThemeProvider.primaryColor,
                       ),
                     ),
                   )

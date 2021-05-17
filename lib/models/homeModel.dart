@@ -1,5 +1,5 @@
 //notify home model on change
-import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:flutter/cupertino.dart';
 
 class HomeModel extends ChangeNotifier {
@@ -21,7 +21,7 @@ class HomeModel extends ChangeNotifier {
   bool _isValid = false;
 
   set setEmailInput(String input) {
-    if (input == Global.validEmail[0]) {
+    if (input == ThemeProvider.validEmail[0]) {
       _isValid = true;
       notifyListeners();
     } else {

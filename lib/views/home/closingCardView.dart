@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:aircraftclosingroom/models/folder.dart';
 import 'package:aircraftclosingroom/models/players.dart';
 import 'package:aircraftclosingroom/services/userinfo_service.dart';
@@ -29,7 +29,7 @@ class ClosingCardView extends StatelessWidget {
   Widget build(BuildContext context) {
     double _screenWidth = MediaQuery.of(context).size.width;
     ScrollController _controller = ScrollController();
-    List<Color> randomColorList = [Global.secondaryAccent, Global.primaryAccent, Global.thirdAccent];
+    List<Color> randomColorList = [ThemeProvider.secondaryAccent, ThemeProvider.primaryAccent, ThemeProvider.thirdAccent];
 
     return Scaffold(
       appBar: AppBar(
@@ -41,52 +41,52 @@ class ClosingCardView extends StatelessWidget {
           Column(
             children: [
               SizedBox(height: 10),
-              Text('Closing Details', style: TextStyle(color: Global.secondaryTextColor)),
+              Text('Closing Details', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
               Padding(
                 padding: EdgeInsets.all(10),
                 child: Card(
                   elevation: 3,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  color: Global.secondaryButton,
+                  color: ThemeProvider.secondaryButton,
                   child: Container(
                     margin: EdgeInsets.all(10),
                     width: _screenWidth,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Closing ID:', style: TextStyle(color: Global.secondaryTextColor)),
-                        Text('$closingID', style: TextStyle(color: Global.bodyTextColor)),
+                        Text('Closing ID:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                        Text('$closingID', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                         SizedBox(height: 10),
-                        Text('Tail Number:', style: TextStyle(color: Global.secondaryTextColor)),
-                        Text('$tailNumber', style: TextStyle(color: Global.bodyTextColor)),
+                        Text('Tail Number:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                        Text('$tailNumber', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                         SizedBox(height: 10),
-                        Text('Make:', style: TextStyle(color: Global.secondaryTextColor)),
-                        Text('$make', style: TextStyle(color: Global.bodyTextColor)),
+                        Text('Make:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                        Text('$make', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                         SizedBox(height: 10),
-                        Text('Model:', style: TextStyle(color: Global.secondaryTextColor)),
-                        Text('$model', style: TextStyle(color: Global.bodyTextColor)),
+                        Text('Model:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                        Text('$model', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                         SizedBox(height: 10),
-                        Text('Serial Number:', style: TextStyle(color: Global.secondaryTextColor)),
-                        Text('$sNumber', style: TextStyle(color: Global.bodyTextColor)),
+                        Text('Serial Number:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                        Text('$sNumber', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                         SizedBox(height: 10),
-                        Text('Order Date:', style: TextStyle(color: Global.secondaryTextColor)),
-                        Text('$orderDate', style: TextStyle(color: Global.bodyTextColor)),
+                        Text('Order Date:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                        Text('$orderDate', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                         SizedBox(height: 10),
-                        Text('Agent Name:', style: TextStyle(color: Global.secondaryTextColor)),
-                        Text('$agentName', style: TextStyle(color: Global.bodyTextColor)),
+                        Text('Agent Name:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                        Text('$agentName', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                         SizedBox(height: 10),
-                        Text('Status:', style: TextStyle(color: Global.secondaryTextColor)),
-                        Text('$status', style: TextStyle(color: Global.bodyTextColor)),
+                        Text('Status:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                        Text('$status', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                         SizedBox(height: 10),
-                        Text('Part Type:', style: TextStyle(color: Global.secondaryTextColor)),
-                        Text('$invObjType', style: TextStyle(color: Global.bodyTextColor)),
+                        Text('Part Type:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                        Text('$invObjType', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                         SizedBox(height: 10),
                       ],
                     ),
                   ),
                 ),
               ),
-              Text('Players', style: TextStyle(color: Global.secondaryTextColor)),
+              Text('Players', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
               SizedBox(height: 10),
               Container(
                 child: FutureBuilder(
@@ -198,31 +198,31 @@ Padding closingPlayersList({context: dynamic, color: Color, name: String, player
                 child: Column(
                   children: [
                     SizedBox(height: 10),
-                    Text(name, style: TextStyle(color: color == Colors.white.withOpacity(0) ? Global.secondaryTextColor : Global.primaryTextColor)),
-                    Text('-- ' + playerRole + ' --', style: TextStyle(color: color == Colors.white.withOpacity(0) ? Global.secondaryTextColor : Global.primaryTextColor)),
+                    Text(name, style: TextStyle(color: color == Colors.white.withOpacity(0) ? ThemeProvider.secondaryTextColor : ThemeProvider.primaryTextColor)),
+                    Text('-- ' + playerRole + ' --', style: TextStyle(color: color == Colors.white.withOpacity(0) ? ThemeProvider.secondaryTextColor : ThemeProvider.primaryTextColor)),
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: Card(
                         elevation: 3,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        color: Global.secondaryButton,
+                        color: ThemeProvider.secondaryButton,
                         child: Container(
                           margin: EdgeInsets.all(10),
                           width: screenWidth,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text('Name:', style: TextStyle(color: Global.secondaryTextColor)),
-                              Text('$name', style: TextStyle(color: Global.bodyTextColor)),
+                              Text('Name:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                              Text('$name', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                               SizedBox(height: 10),
-                              Text('Email:', style: TextStyle(color: Global.secondaryTextColor)),
-                              Text('$email', style: TextStyle(color: Global.bodyTextColor)),
+                              Text('Email:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                              Text('$email', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                               SizedBox(height: 10),
-                              Text('companyName:', style: TextStyle(color: Global.secondaryTextColor)),
-                              Text('$companyName', style: TextStyle(color: Global.bodyTextColor)),
+                              Text('companyName:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+                              Text('$companyName', style: TextStyle(color: ThemeProvider.bodyTextColor)),
                               SizedBox(height: 10),
                               //this is the document text ('Document')
-                              Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Documents', style: TextStyle(color: Global.secondaryTextColor))]),
+                              Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Documents', style: TextStyle(color: ThemeProvider.secondaryTextColor))]),
                               FutureBuilder(
                                 future: _documentFolder(playerID: closingPlayerID),
                                 builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -288,7 +288,7 @@ Padding playerDocumentList({color: Colors, folderName: String, dateRecieved: Str
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(flex: 1),
-            Text('Name: ' + folderName, style: TextStyle(color: Global.secondaryTextColor, fontWeight: FontWeight.w500)),
+            Text('Name: ' + folderName, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)),
             dateRecieved != 'null' ? Icon(Icons.done, color: Colors.green) : Icon(Icons.close, color: Colors.red),
             Spacer(flex: 1),
           ],

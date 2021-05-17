@@ -1,4 +1,4 @@
-import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:flutter/material.dart';
 
 class ButtonWidgetStyle1 extends StatelessWidget {
@@ -16,11 +16,11 @@ class ButtonWidgetStyle1 extends StatelessWidget {
     return Material(
       child: Ink(
         decoration: BoxDecoration(
-          color: hasBorder ? Global.primaryColor : Colors.white,
+          color: hasBorder ? ThemeProvider.primaryColor : Colors.white,
           //apply border raidus to decoration
           borderRadius: BorderRadius.circular(0),
           //is has border true ? if so add it color and width if not set BorderSide to none
-          border: hasBorder ? Border.all(color: Global.primaryColor, width: 2) : Border.fromBorderSide(BorderSide.none),
+          border: hasBorder ? Border.all(color: ThemeProvider.primaryColor, width: 2) : Border.fromBorderSide(BorderSide.none),
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(0),
@@ -34,7 +34,7 @@ class ButtonWidgetStyle1 extends StatelessWidget {
                   Spacer(flex: 1),
                   Text(
                     buttonTitle,
-                    style: TextStyle(color: hasBorder ? Colors.white : Global.primaryColor, fontWeight: FontWeight.w600, fontSize: 20),
+                    style: TextStyle(color: hasBorder ? Colors.white : ThemeProvider.primaryColor, fontWeight: FontWeight.w600, fontSize: 20),
                   ),
                   Spacer(flex: 1),
                   Icon(

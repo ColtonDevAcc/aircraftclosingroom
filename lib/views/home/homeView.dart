@@ -1,8 +1,9 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'dart:math';
 
-import 'package:aircraftclosingroom/core/global.dart';
+import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:aircraftclosingroom/models/ClosingList.dart';
 import 'package:aircraftclosingroom/services/userinfo_service.dart';
 import 'package:aircraftclosingroom/views/home/closingCardView.dart';
@@ -10,6 +11,8 @@ import 'package:aircraftclosingroom/widgets/FeaturedCardWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+HashMap featuredClosingHashMap = new HashMap<dynamic, dynamic>();
 
 class HomeView extends StatelessWidget {
   @override
@@ -19,19 +22,19 @@ class HomeView extends StatelessWidget {
 
     double screenHeight = MediaQuery.of(context).size.height.toDouble();
     double screenWidth = MediaQuery.of(context).size.height.toDouble();
-    List<Color> randomColorList = [Global.secondaryAccent, Global.primaryAccent, Global.thirdAccent];
+    List<Color> randomColorList = [ThemeProvider.secondaryAccent, ThemeProvider.primaryAccent, ThemeProvider.thirdAccent];
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        largeFeaturedCardWidget(screenHeight: screenHeight / 1.3, screenWidth: screenWidth / 3.5, title: '${UserInfo.customerName}\'s Closings'),
+        largeFeaturedCardWidget(screenHeight: screenHeight / 2, screenWidth: screenWidth / 3.5, title: '${UserInfo.customerName}\'s Closings', useAsAppBar: false, displayImage: true),
         //column that displays header text 'objectives/browse'
         Column(
           children: [
             SizedBox(height: 2),
-            Text('Objectives', style: TextStyle(fontSize: 35, fontWeight: FontWeight.w500, color: Global.secondaryTextColor)),
+            Text('Objectives', style: TextStyle(fontSize: 35, fontWeight: FontWeight.w500, color: ThemeProvider.secondaryTextColor)),
             SizedBox(height: 2),
-            Text('Browse', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Global.secondaryTextColor)),
+            Text('Browse', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: ThemeProvider.secondaryTextColor)),
           ],
         ),
         Spacer(flex: 1),
@@ -75,7 +78,7 @@ class HomeView extends StatelessWidget {
                   child: Center(
                     child: Text(
                       'you have no closings :(',
-                      style: TextStyle(color: Global.secondaryTextColor),
+                      style: TextStyle(color: ThemeProvider.secondaryTextColor),
                     ),
                   ),
                 );
