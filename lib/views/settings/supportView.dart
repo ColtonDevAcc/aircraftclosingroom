@@ -61,4 +61,3 @@ class SupportView extends StatelessWidget {
   }
 }
 
-String _supportText = '';

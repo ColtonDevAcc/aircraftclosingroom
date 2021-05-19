@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  static const List validEmail = ['test@gmail.com'];
+  static const List validEmail = ['cbristow@aictitle.com'];
   static const Color primaryColor = Color.fromRGBO(3, 90, 166, 1.0);
   static const Color secondaryColor = Color.fromRGBO(242, 168, 29, 1.0);
   static const Color primaryAccent = Color.fromRGBO(221, 64, 64, 1.0);
@@ -22,4 +22,41 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   get getTheme => _darkMode ? ThemeData.dark() : ThemeData.light();
+
+  bool _obscurePass = true;
+
+  set setObscurePass(bool input) {
+    if (input == true) {
+      _obscurePass = true;
+      notifyListeners();
+    } else {
+      _obscurePass = false;
+      notifyListeners();
+    }
+  }
+
+  get obscurePass => _obscurePass;
+
+  bool _isValid = false;
+
+  set setEmailInput(String input) {
+    if (input == validEmail[0]) {
+      _isValid = true;
+      notifyListeners();
+    } else {
+      _isValid = false;
+      notifyListeners();
+    }
+  }
+
+  bool get isValid => _isValid;
+
+  bool _isLoading = false;
+
+  get getIsLoading => _isLoading;
+
+  void setIsLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 }

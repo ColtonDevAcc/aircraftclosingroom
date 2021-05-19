@@ -1,8 +1,5 @@
-import 'dart:collection';
 import 'dart:convert';
-
 import 'dart:math';
-
 import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:aircraftclosingroom/models/ClosingList.dart';
 import 'package:aircraftclosingroom/services/userinfo_service.dart';
@@ -11,8 +8,6 @@ import 'package:aircraftclosingroom/widgets/FeaturedCardWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-HashMap featuredClosingHashMap = new HashMap<dynamic, dynamic>();
 
 class HomeView extends StatelessWidget {
   @override
@@ -76,9 +71,11 @@ class HomeView extends StatelessWidget {
               } else {
                 return Container(
                   child: Center(
-                    child: Text(
-                      'you have no closings :(',
-                      style: TextStyle(color: ThemeProvider.secondaryTextColor),
+                    child: Container(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(ThemeProvider.primaryColor),
+                        backgroundColor: ThemeProvider.secondaryAccent,
+                      ),
                     ),
                   ),
                 );

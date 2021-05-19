@@ -13,6 +13,7 @@ class UserInfo {
   static String photoIdOnFile = 'Empty';
   static bool accepteduser = false;
   static dynamic userSecretKey = 'cb4a2928-f601-4ed4-8c05-3f44b5aee2a1';
+  static String playerID = '';
 
   userLogIn({userEmailAddress: String, userPassword: String}) async {
     try {

@@ -1,6 +1,5 @@
 import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:aircraftclosingroom/views/settings/supportView.dart';
-import 'package:aircraftclosingroom/views/settings/yourAccountView.dart';
 import 'package:aircraftclosingroom/views/settings/yourClosingsView.dart';
 import 'package:aircraftclosingroom/widgets/FeaturedCardWidget.dart';
 import 'package:aircraftclosingroom/widgets/smallHorizontalCardWidget.dart';

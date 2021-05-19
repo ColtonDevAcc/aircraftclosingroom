@@ -1,14 +1,14 @@
 class Folder {
-  Folder(this.escrowCategoryTransactionId, this.customLabel, this.name, this.received, this.dateReceived);
+  Folder(this.escrowCategoryTransactionsId, this.customLabel, this.name, this.received, this.dateReceived);
 
-  final int? escrowCategoryTransactionId;
+  final int? escrowCategoryTransactionsId;
   final String? name;
   final bool? received;
   final String? dateReceived;
   final String? customLabel;
 
   Folder.fromJson(Map<String, dynamic> json)
-      : escrowCategoryTransactionId = json['EscrowCategoryTransactionsId'],
+      : escrowCategoryTransactionsId = json['EscrowCategoryTransactionsId'],
         name = json['Name'],
         received = json['Received'],
         dateReceived = json['DateReceived'],
@@ -16,7 +16,7 @@ class Folder {
 
   Map<String, dynamic> toJson() {
     return {
-      'EscrowCategoryTransactionId': escrowCategoryTransactionId,
+      'EscrowCategoryTransactionsId': escrowCategoryTransactionsId,
       'Name': name,
       'Received': received,
       'DateReceived': dateReceived,

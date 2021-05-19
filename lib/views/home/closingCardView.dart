@@ -1,14 +1,16 @@
 import 'dart:convert';
 
 import 'package:aircraftclosingroom/core/themeProvider.dart';
+import 'package:aircraftclosingroom/locator.dart';
 import 'package:aircraftclosingroom/models/folder.dart';
 import 'package:aircraftclosingroom/models/players.dart';
+import 'package:aircraftclosingroom/services/MessagingService.dart';
 import 'package:aircraftclosingroom/services/userinfo_service.dart';
-import 'package:aircraftclosingroom/views/home/documentFolderView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class ClosingCardView extends StatelessWidget {
   final int? closingID;
@@ -28,8 +30,6 @@ class ClosingCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double _screenWidth = MediaQuery.of(context).size.width;
-    ScrollController _controller = ScrollController();
-    List<Color> randomColorList = [ThemeProvider.secondaryAccent, ThemeProvider.primaryAccent, ThemeProvider.thirdAccent];
 
     return Scaffold(
       appBar: AppBar(
@@ -101,15 +101,15 @@ class ClosingCardView extends StatelessWidget {
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
                               return closingPlayersList(
-                                name: snapshot.data[index].customerName,
-                                color: index.toDouble() % 2.0 != 0 ? Colors.white.withOpacity(0) : color,
-                                playerRole: snapshot.data[index].playerRole,
-                                screenWidth: _screenWidth,
-                                closingID: snapshot.data[index].closingID,
-                                email: snapshot.data[index].email,
-                                companyName: snapshot.data[index].companyName,
-                                closingPlayerID: snapshot.data[index].closingPlayerID,
-                              );
+                                  name: snapshot.data[index].customerName,
+                                  color: index.toDouble() % 2.0 != 0 ? Colors.white.withOpacity(0) : color,
+                                  playerRole: snapshot.data[index].playerRole,
+                                  screenWidth: _screenWidth,
+                                  closingID: snapshot.data[index].closingID,
+                                  email: snapshot.data[index].email,
+                                  companyName: snapshot.data[index].companyName,
+                                  closingPlayerID: snapshot.data[index].closingPlayerID,
+                                  isUser: snapshot.data[index].customerName == UserInfo.customerName ? true : false);
                             },
                           ),
                         );
@@ -150,6 +150,8 @@ class ClosingCardView extends StatelessWidget {
         player['OrderStatus'],
         player['ItsMe'],
       );
+      // ignore: unnecessary_statements
+      newPlayer.closingID.toString() == UserInfo.customerName ? UserInfo.playerID = newPlayer.closingID.toString() : null;
       playerList.add(newPlayer);
     }
 
@@ -177,10 +179,33 @@ Future<List<Folder>> _documentFolder({playerID: String}) async {
   return documentFolderList;
 }
 
+Future<List<FolderContents>> _getContents({escrowCategoryTransactionsId: String}) async {
+  List<FolderContents> folderDocumentList = [];
+
+  var idUrl = Uri.parse('https://aicvirtualclosings.com/api/mobile/CategoryDocs/${UserInfo.playerID}/$escrowCategoryTransactionsId/${UserInfo.userSecretKey}');
+
+  var data = await http.get(idUrl);
+  var jsondata = jsonDecode(data.body);
+
+  for (var content in jsondata) {
+    FolderContents document = FolderContents(
+      content['DocumentID'],
+      content['Status'],
+      content['Date'],
+      content['FileType'],
+    );
+    folderDocumentList.add(document);
+  }
+
+  return folderDocumentList;
+}
+
 //=============================================
 //player profiles
 //=============================================
-Padding closingPlayersList({context: dynamic, color: Color, name: String, playerRole: String, screenWidth: double, closingID: String, closingPlayerID: String, companyName: String, email: String}) {
+Padding closingPlayersList({context: dynamic, color: Color, name: String, playerRole: String, screenWidth: double, closingID: String, closingPlayerID: String, companyName: String, email: String, isUser: bool}) {
+  // ignore: unnecessary_statements
+  isUser ? UserInfo.playerID = closingPlayerID.toString() : null;
   return Padding(
     padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
     child: Container(
@@ -198,7 +223,7 @@ Padding closingPlayersList({context: dynamic, color: Color, name: String, player
                 child: Column(
                   children: [
                     SizedBox(height: 10),
-                    Text(name, style: TextStyle(color: color == Colors.white.withOpacity(0) ? ThemeProvider.secondaryTextColor : ThemeProvider.primaryTextColor)),
+                    Text(isUser ? '$name // Your Card' : name, style: TextStyle(color: color == Colors.white.withOpacity(0) ? ThemeProvider.secondaryTextColor : ThemeProvider.primaryTextColor)),
                     Text('-- ' + playerRole + ' --', style: TextStyle(color: color == Colors.white.withOpacity(0) ? ThemeProvider.secondaryTextColor : ThemeProvider.primaryTextColor)),
                     Padding(
                       padding: EdgeInsets.all(10),
@@ -234,12 +259,12 @@ Padding closingPlayersList({context: dynamic, color: Color, name: String, player
                                         itemCount: snapshot.data.length,
                                         itemBuilder: (BuildContext context, int index) {
                                           return playerDocumentList(
-                                            escrowCategoryTransactionID: 'ff',
+                                            escrowCategoryTransactionsId: snapshot.data[index].escrowCategoryTransactionsId,
                                             folderName: snapshot.data[index].customLabel,
                                             recieved: snapshot.data[index].received.toString(),
                                             dateRecieved: snapshot.data[index].dateReceived.toString(),
-                                            folderID: snapshot.data[index].escrowCategoryTransactionId.toString(),
                                             color: Colors.white,
+                                            you: isUser,
                                           );
                                         },
                                       ),
@@ -272,7 +297,9 @@ Padding closingPlayersList({context: dynamic, color: Color, name: String, player
 //=============================================
 //document folders
 //=============================================
-Padding playerDocumentList({color: Colors, folderName: String, dateRecieved: String, folderID: String, escrowCategoryTransactionID: String, recieved: String}) {
+Padding playerDocumentList({color: Colors, folderName: String, dateRecieved: String, escrowCategoryTransactionsId: String, recieved: String, you: bool}) {
+  bool _documentCompleted = dateRecieved != 'null' ? true : false;
+
   return Padding(
     padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
     child: Container(
@@ -286,40 +313,33 @@ Padding playerDocumentList({color: Colors, folderName: String, dateRecieved: Str
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Spacer(flex: 1),
-            Text('Name: ' + folderName, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)),
-            dateRecieved != 'null' ? Icon(Icons.done, color: Colors.green) : Icon(Icons.close, color: Colors.red),
-            Spacer(flex: 1),
-          ],
-        ),
-      ),
-    ),
-  );
-}
-
-/*
-Text('Document Folders', style: TextStyle(color: Global.secondaryTextColor)),
-              Container(
-                height: 90,
-                child: FutureBuilder(
-                    future: _documentFolder(),
+          children: <Widget>[
+            you
+                ? FutureBuilder(
+                    future: _getContents(
+                      escrowCategoryTransactionsId: escrowCategoryTransactionsId,
+                    ),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.data != null) {
                         return Container(
-                          height: 185,
                           child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            controller: _controller,
-                            physics: AlwaysScrollableScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return documentList(
-                                color: color,
-                                folderName: snapshot.data[index].customLabel.toString(),
-                                dateRecieved: snapshot.data[index].dateReceived.toString(),
-                                folderID: snapshot.data[index].escrowCategoryTransactionId.toString(),
-                                context: context,
+                              return ListTile(
+                                leading: _documentCompleted ? Icon(Icons.done, color: Colors.green) : Icon(Icons.close, color: Colors.red),
+                                trailing: you ? Icon(Icons.search) : null,
+                                title: Text(folderName, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)),
+                                subtitle: _documentCompleted ? Text(dateRecieved, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)) : Text('Not Completed', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)),
+                                onTap: you
+                                    // on tap functionality
+                                    ? () async {
+                                        await launch('https://aircraftclosingroom.com/api/mobile/getdocument/${snapshot.data[index].documentId}/${UserInfo.userSecretKey}', forceWebView: false, forceSafariVC: false, enableDomStorage: true, enableJavaScript: true);
+                                        print('https://aircraftclosingroom.com/api/mobile/getdocument/${snapshot.data[index].documentId}/${UserInfo.userSecretKey}');
+                                      }
+                                    : null,
                               );
                             },
                           ),
@@ -327,11 +347,21 @@ Text('Document Folders', style: TextStyle(color: Global.secondaryTextColor)),
                       } else {
                         return Center(
                           child: Container(
-                            child: Text('loading document folder list...'),
+                            child: Text('loading player content...'),
                           ),
                         );
                       }
                     } // else here ,
-                    ),
-              )
-*/
+                    )
+                : ListTile(
+                    leading: _documentCompleted ? Icon(Icons.done, color: Colors.green) : Icon(Icons.close, color: Colors.red),
+                    trailing: you ? Icon(Icons.search) : null,
+                    title: Text(folderName, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)),
+                    subtitle: _documentCompleted ? Text(dateRecieved, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)) : Text('Not Completed', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)),
+                  ),
+          ],
+        ),
+      ),
+    ),
+  );
+}

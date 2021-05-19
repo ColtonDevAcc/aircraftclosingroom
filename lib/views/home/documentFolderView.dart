@@ -14,7 +14,6 @@ class DocumentFolderView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double _screenWidth = MediaQuery.of(context).size.width;
-    ScrollController _controller = ScrollController();
 
     return Scaffold(
         appBar: AppBar(

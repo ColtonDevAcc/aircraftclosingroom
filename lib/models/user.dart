@@ -5,8 +5,9 @@ class LogInUser {
   final String email;
   final String photoIdRequired;
   final String photoIdOnFile;
+  String? playerID;
 
-  LogInUser(this.customerID, this.customerName, this.companyName, this.email, this.photoIdRequired, this.photoIdOnFile);
+  LogInUser(this.customerID, this.customerName, this.companyName, this.email, this.photoIdRequired, this.photoIdOnFile, this.playerID);
 
   LogInUser.fromJson(Map<String, dynamic> json)
       : customerID = json['CustomerID'],

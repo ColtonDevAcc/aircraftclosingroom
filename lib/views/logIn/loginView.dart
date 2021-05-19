@@ -1,11 +1,11 @@
 import 'package:aircraftclosingroom/core/themeProvider.dart';
-import 'package:aircraftclosingroom/models/homeModel.dart';
 import 'package:aircraftclosingroom/services/userinfo_service.dart';
 import 'package:aircraftclosingroom/views/mainView.dart';
 import 'package:aircraftclosingroom/widgets/buttonWidgetStyle1.dart';
 import 'package:aircraftclosingroom/widgets/textFieldWidgetStyle1.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -18,8 +18,9 @@ class _LoginViewState extends State<LoginView> {
     final emailTextController = new TextEditingController();
     final passwordTextController = new TextEditingController();
 
-    HomeModel homeModel = new HomeModel();
     UserInfo _user = UserInfo();
+
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
     Future<bool> _logIn() async {
       await _user.userLogIn(userEmailAddress: emailTextController.text, userPassword: passwordTextController.text);
@@ -49,8 +50,8 @@ class _LoginViewState extends State<LoginView> {
                 obscure: false,
                 prefixIcon: Icons.email,
                 controller: emailTextController,
-                suffixIconData: homeModel.isValid ? Icons.check : null,
-                onTextChanged: (value) => homeModel.setEmailInput = value,
+                suffixIconData: themeProvider.isValid ? Icons.check : null,
+                onTextChanged: (value) {},
               ),
               SizedBox(height: 10),
               //this column contains the password filed and the forgot password link
@@ -59,22 +60,21 @@ class _LoginViewState extends State<LoginView> {
                 children: <Widget>[
                   TextFieldWidget(
                     hintText: 'Password',
-                    obscure: homeModel.obscurePass,
+                    obscure: themeProvider.obscurePass,
                     prefixIcon: Icons.vpn_key,
-                    suffixIconData: homeModel.obscurePass ? Icons.visibility : Icons.visibility_off,
+                    suffixIconData: themeProvider.obscurePass ? Icons.visibility : Icons.visibility_off,
                     onTextChanged: (value) {},
                     controller: passwordTextController,
                     onSuffixiconTap: () {
-                      homeModel.obscurePass ? homeModel.setObscurePass = false : homeModel.setObscurePass = true;
+                      themeProvider.obscurePass ? themeProvider.setObscurePass = false : themeProvider.setObscurePass = true;
+                      print('pressed');
                     },
                   ),
                   SizedBox(height: 10),
                   //forgot password action
 
                   GestureDetector(
-                    onTap: () {
-                      print("OOOOOO man i forgot my pass :(");
-                    },
+                    onTap: () {},
                     child: Text(
                       'Forgot password?',
                       style: TextStyle(
@@ -89,13 +89,15 @@ class _LoginViewState extends State<LoginView> {
               ButtonWidgetStyle1(
                 hasBorder: true,
                 buttonTitle: "Login",
+                userLoggingIn: themeProvider.getIsLoading,
                 onTapFunction: () async {
+                  themeProvider.setIsLoading(true);
                   bool userlogedin = await _logIn();
                   if (userlogedin == true) {
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainView()));
                   } else {
+                    themeProvider.setIsLoading(false);
                     badLoginDialogBox();
-                    print('wrong pass or email');
                   }
                 },
               ),
