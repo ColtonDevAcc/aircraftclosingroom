@@ -1,10 +1,8 @@
 import 'dart:convert';
 
 import 'package:aircraftclosingroom/core/themeProvider.dart';
-import 'package:aircraftclosingroom/locator.dart';
 import 'package:aircraftclosingroom/models/folder.dart';
 import 'package:aircraftclosingroom/models/players.dart';
-import 'package:aircraftclosingroom/services/MessagingService.dart';
 import 'package:aircraftclosingroom/services/userinfo_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,13 +39,13 @@ class ClosingCardView extends StatelessWidget {
           Column(
             children: [
               SizedBox(height: 10),
-              Text('Closing Details', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+              Text('Closing Details', style: TextStyle(color: ThemeProvider.secondaryTextColor), textScaleFactor: 1.3),
               Padding(
                 padding: EdgeInsets.all(10),
                 child: Card(
                   elevation: 3,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  color: ThemeProvider.secondaryButton,
+                  color: ThemeProvider.primaryCardColor,
                   child: Container(
                     margin: EdgeInsets.all(10),
                     width: _screenWidth,
@@ -86,7 +84,7 @@ class ClosingCardView extends StatelessWidget {
                   ),
                 ),
               ),
-              Text('Players', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
+              Text('Players', style: TextStyle(color: ThemeProvider.secondaryTextColor), textScaleFactor: 1.3),
               SizedBox(height: 10),
               Container(
                 child: FutureBuilder(
@@ -230,7 +228,7 @@ Padding closingPlayersList({context: dynamic, color: Color, name: String, player
                       child: Card(
                         elevation: 3,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        color: ThemeProvider.secondaryButton,
+                        color: ThemeProvider.primaryCardColor,
                         child: Container(
                           margin: EdgeInsets.all(10),
                           width: screenWidth,
@@ -263,7 +261,7 @@ Padding closingPlayersList({context: dynamic, color: Color, name: String, player
                                             folderName: snapshot.data[index].customLabel,
                                             recieved: snapshot.data[index].received.toString(),
                                             dateRecieved: snapshot.data[index].dateReceived.toString(),
-                                            color: Colors.white,
+                                            color: ThemeProvider.primaryCardColor,
                                             you: isUser,
                                           );
                                         },

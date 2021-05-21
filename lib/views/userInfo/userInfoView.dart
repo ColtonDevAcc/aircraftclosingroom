@@ -17,7 +17,7 @@ class UserInfoView extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            largeFeaturedCardWidget(screenWidth: _screenWidth * .1, screenHeight: _screenHeight / 12, title: 'User Information', useAsAppBar: false, displayImage: false),
+            LargeFeaturedCardWidget(screenWidth: _screenWidth * .1, screenHeight: _screenHeight / 12, title: 'User Information'),
             Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: Column(
@@ -26,7 +26,7 @@ class UserInfoView extends StatelessWidget {
                   Card(
                     elevation: 3,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    color: ThemeProvider.secondaryButton,
+                    color: ThemeProvider.primaryCardColor,
                     child: Container(
                       margin: EdgeInsets.all(10),
                       width: _screenWidth,
@@ -65,7 +65,7 @@ class UserInfoView extends StatelessWidget {
               child: Card(
                 elevation: 3,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                color: ThemeProvider.secondaryButton,
+                color: ThemeProvider.primaryCardColor,
                 child: Container(
                   margin: EdgeInsets.all(10),
                   width: _screenWidth,

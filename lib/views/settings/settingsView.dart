@@ -18,7 +18,7 @@ class SettingsView extends StatelessWidget {
 
     return Column(
       children: [
-        largeFeaturedCardWidget(screenWidth: screenWidth * .1, screenHeight: screenHeight / 12, title: 'Settings', useAsAppBar: false, displayImage: false),
+        LargeFeaturedCardWidget(screenWidth: screenWidth * .1, screenHeight: screenHeight / 12, title: 'Settings'),
         Padding(
           padding: EdgeInsets.fromLTRB(30, 30, 30, 90),
           child: Column(
@@ -26,28 +26,28 @@ class SettingsView extends StatelessWidget {
             children: <Widget>[
               SmallHorizontalFeaturedCardWidget(
                 title: 'Your Closings',
-                color: ThemeProvider.secondaryButton,
+                color: ThemeProvider.primaryCardColor,
                 trailingWidget: Icon(Icons.arrow_forward_ios),
                 icon: Icons.cases_outlined,
                 onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => YourClosingsView())),
               ),
               SmallHorizontalFeaturedCardWidget(
                 title: 'Support',
-                color: ThemeProvider.secondaryButton,
+                color: ThemeProvider.primaryCardColor,
                 trailingWidget: Icon(Icons.arrow_forward_ios),
                 icon: Icons.support_agent_outlined,
                 onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SupportView())),
               ),
               SmallHorizontalFeaturedCardWidget(
                 title: 'About us',
-                color: ThemeProvider.secondaryButton,
+                color: ThemeProvider.primaryCardColor,
                 trailingWidget: Icon(Icons.arrow_forward_ios),
                 icon: Icons.info_outline_rounded,
                 onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUsView())),
               ),
               SmallHorizontalFeaturedCardWidget(
                 title: 'Developer Mode',
-                color: ThemeProvider.secondaryButton,
+                color: ThemeProvider.primaryCardColor,
                 trailingWidget: Icon(Icons.arrow_forward_ios),
                 icon: Icons.developer_mode_outlined,
                 onTap: () {
@@ -72,7 +72,7 @@ class SettingsView extends StatelessWidget {
               ),
               SmallHorizontalFeaturedCardWidget(
                 title: 'Dark Mode',
-                color: ThemeProvider.secondaryButton,
+                color: ThemeProvider.primaryCardColor,
                 trailingWidget: Switch(
                     value: (themeProvider.getDarkMode),
                     activeColor: ThemeProvider.primaryColor,

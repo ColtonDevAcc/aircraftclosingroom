@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:math';
+
 import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:aircraftclosingroom/models/ClosingList.dart';
 import 'package:aircraftclosingroom/services/userinfo_service.dart';
@@ -7,6 +7,7 @@ import 'package:aircraftclosingroom/views/home/closingCardView.dart';
 import 'package:aircraftclosingroom/widgets/FeaturedCardWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
 
 class HomeView extends StatelessWidget {
@@ -17,12 +18,21 @@ class HomeView extends StatelessWidget {
 
     double screenHeight = MediaQuery.of(context).size.height.toDouble();
     double screenWidth = MediaQuery.of(context).size.height.toDouble();
-    List<Color> randomColorList = [ThemeProvider.secondaryAccent, ThemeProvider.primaryAccent, ThemeProvider.thirdAccent];
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        largeFeaturedCardWidget(screenHeight: screenHeight / 2, screenWidth: screenWidth / 3.5, title: '${UserInfo.customerName}\'s Closings', useAsAppBar: false, displayImage: true),
+        LargeFeaturedCardWidget(
+          screenHeight: screenHeight / 1.1,
+          screenWidth: screenWidth / 3.5,
+          title: '${UserInfo.customerName}\'s Closings',
+          displayWidget: Container(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Image.asset('assets/images/iconClear.png'),
+            ),
+          ),
+        ),
         //column that displays header text 'objectives/browse'
         Column(
           children: [
@@ -53,7 +63,7 @@ class HomeView extends StatelessWidget {
                         transparent: false,
                         context: context,
                         featuredPicture: snapshot.data[index].objType.toString() == 'Airframe' ? AssetImage('assets/images/airframe.png') : AssetImage('assets/images/Aircraft_Jet_Engine.png'),
-                        color: randomColorList[Random().nextInt(3)],
+                        color: randomColorList[index],
                         title: snapshot.data[index].objType.toString() + " " + snapshot.data[index].sNumber.toString(),
                         closingID: snapshot.data[index].closingID,
                         tailNumber: snapshot.data[index].tailNumber,
@@ -64,6 +74,7 @@ class HomeView extends StatelessWidget {
                         agentName: snapshot.data[index].agentName,
                         status: snapshot.data[index].status,
                         invObjType: snapshot.data[index].objType,
+                        borderRadius: 12.0,
                       );
                     },
                   ),
@@ -113,7 +124,8 @@ Future<List<ClosingList>> _closingList() async {
   return closingList;
 }
 
-Padding closingCardsWidget({context: dynamic, color: Colors, transparent: bool, title: String, featuredPicture: AssetImage, closingID: int, tailNumber: String, make: String, model: String, sNumber: String, orderDate: String, agentName: String, status: String, invObjType: String}) {
+Padding closingCardsWidget(
+    {borderRadius: double, context: dynamic, color: Colors, transparent: bool, title: String, featuredPicture: AssetImage, closingID: int, tailNumber: String, make: String, model: String, sNumber: String, orderDate: String, agentName: String, status: String, invObjType: String}) {
   return Padding(
     padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
     child: Container(
@@ -144,7 +156,7 @@ Padding closingCardsWidget({context: dynamic, color: Colors, transparent: bool, 
           shadowColor: transparent ? Colors.white.withOpacity(0) : Colors.black,
           color: transparent ? Colors.white.withOpacity(0) : color,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -171,3 +183,21 @@ Padding closingCardsWidget({context: dynamic, color: Colors, transparent: bool, 
     ),
   );
 }
+
+List<Color> randomColorList = [
+  ThemeProvider.secondaryAccent,
+  ThemeProvider.primaryAccent,
+  ThemeProvider.thirdAccent,
+  ThemeProvider.secondaryAccent,
+  ThemeProvider.primaryAccent,
+  ThemeProvider.thirdAccent,
+  ThemeProvider.secondaryAccent,
+  ThemeProvider.primaryAccent,
+  ThemeProvider.thirdAccent,
+  ThemeProvider.secondaryAccent,
+  ThemeProvider.primaryAccent,
+  ThemeProvider.thirdAccent,
+  ThemeProvider.secondaryAccent,
+  ThemeProvider.primaryAccent,
+  ThemeProvider.thirdAccent,
+];

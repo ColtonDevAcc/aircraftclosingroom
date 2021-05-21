@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  static const List validEmail = ['cbristow@aictitle.com'];
-  static const Color primaryColor = Color.fromRGBO(3, 90, 166, 1.0);
-  static const Color secondaryColor = Color.fromRGBO(242, 168, 29, 1.0);
-  static const Color primaryAccent = Color.fromRGBO(221, 64, 64, 1.0);
-  static const Color secondaryAccent = Color.fromRGBO(255, 167, 0, 1.0);
-  static const Color primaryTextColor = Colors.white;
-  static const Color bodyTextColor = Color.fromRGBO(166, 168, 208, 1.0);
-  static const Color secondaryTextColor = Color.fromRGBO(116, 138, 157, 1.0);
-  static const Color thirdAccent = Color.fromRGBO(139, 195, 217, 1.0);
-  static const Color secondaryButton = Color.fromRGBO(240, 244, 248, 1.0);
+  static List validEmail = ['cbristow@aictitle.com'];
+  static Color primaryColor = Color.fromRGBO(27, 54, 100, 1.0);
+  static Color secondaryColor = Color.fromRGBO(242, 168, 29, 1.0);
+  static Color primaryAccent = Color.fromRGBO(221, 64, 64, 1.0);
+  static Color secondaryAccent = Color.fromRGBO(255, 167, 0, 1.0);
+  static Color primaryTextColor = Colors.white;
+  static Color bodyTextColor = Color.fromRGBO(166, 168, 208, 1.0);
+  static Color secondaryTextColor = Color.fromRGBO(116, 138, 157, 1.0);
+  static Color thirdAccent = Color.fromRGBO(139, 195, 217, 1.0);
+  static Color secondaryButton = Color.fromRGBO(240, 244, 248, 1.0);
+
+  static Color primaryCardColor = Colors.white;
+
   bool _darkMode = false;
 
   get getDarkMode => _darkMode;
 
   void setDarkMode(value) {
-    this._darkMode = value;
-    print('darkMode is now set to ${this._darkMode}');
+    if (value == true) {
+      this._darkMode = true;
+      primaryCardColor = Color.fromRGBO(78, 93, 106, 1.0);
+      secondaryTextColor = Color.fromRGBO(166, 188, 208, 1.0);
+    } else {
+      this._darkMode = false;
+      primaryCardColor = Colors.white;
+    }
     notifyListeners();
   }
 

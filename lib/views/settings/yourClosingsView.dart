@@ -10,7 +10,6 @@ class YourClosingsView extends StatelessWidget {
     double _screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: ThemeProvider.primaryColor,
         title: Text('Your closings'),
@@ -25,7 +24,7 @@ class YourClosingsView extends StatelessWidget {
             Card(
               elevation: 3,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              color: ThemeProvider.secondaryButton,
+              color: ThemeProvider.primaryCardColor,
               child: Container(
                 margin: EdgeInsets.all(10),
                 width: _screenWidth,
