@@ -83,7 +83,7 @@ Padding buttonOptions({title: String, active: bool}) {
   return Padding(
     padding: EdgeInsets.all(3),
     child: TextButton(
-      child: Text(title),
+      child: Text(title, style: TextStyle(color: ThemeProvider.primaryColor)),
       onPressed: () {},
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
