@@ -1,4 +1,4 @@
-package com.aictitle.aircraftclosingroom
+package com.aircraftclosingroom
 
 import io.flutter.embedding.android.FlutterActivity
 

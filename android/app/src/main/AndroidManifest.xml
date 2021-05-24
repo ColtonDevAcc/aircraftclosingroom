@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aictitle.aircraftclosingroom">
+    package="com.aircraftclosingroom">
     <uses-permission android:name="android.hardware.camera"
     android:required="true"/>
     <uses-permission android:name="android.hardware.camera.autofocus"
