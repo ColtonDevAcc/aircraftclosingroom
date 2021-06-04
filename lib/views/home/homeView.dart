@@ -7,7 +7,6 @@ import 'package:aircraftclosingroom/views/home/closingCardView.dart';
 import 'package:aircraftclosingroom/widgets/FeaturedCardWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
 
 class HomeView extends StatelessWidget {
@@ -29,7 +28,10 @@ class HomeView extends StatelessWidget {
           displayWidget: Container(
             child: Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: Image.asset('assets/images/iconClear.png'),
+              child: Image.asset(
+                'assets/images/iconClear.png',
+                fit: BoxFit.fitHeight,
+              ),
             ),
           ),
         ),
