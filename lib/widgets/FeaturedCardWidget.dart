@@ -8,6 +8,7 @@ class LargeFeaturedCardWidget extends StatelessWidget {
   final String title;
   final Image? displayImage;
   final Widget? displayWidget;
+  final bool xlScreenSize;
 
   LargeFeaturedCardWidget({
     Key? key,
@@ -16,6 +17,7 @@ class LargeFeaturedCardWidget extends StatelessWidget {
     required this.title,
     this.displayImage,
     this.displayWidget,
+    required this.xlScreenSize,
   }) : super(key: key);
 
   @override
@@ -52,7 +54,13 @@ class LargeFeaturedCardWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if (displayWidget != null) Container(child: displayWidget!) else Text(''),
+                        if (displayWidget != null)
+                          Container(
+                            child: displayWidget!,
+                            height: xlScreenSize ? screenHeight / 2 : screenHeight / 2,
+                          )
+                        else
+                          Text(''),
                       ],
                     )
                   ],

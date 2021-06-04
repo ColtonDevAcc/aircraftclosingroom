@@ -17,7 +17,12 @@ class SettingsView extends StatelessWidget {
 
     return Column(
       children: [
-        LargeFeaturedCardWidget(screenWidth: screenWidth * .1, screenHeight: screenHeight / 12, title: 'Settings'),
+        LargeFeaturedCardWidget(
+          screenWidth: screenWidth * .1,
+          screenHeight: screenHeight / 12,
+          title: 'Settings',
+          xlScreenSize: false,
+        ),
         Padding(
           padding: EdgeInsets.fromLTRB(30, 30, 30, 90),
           child: Column(

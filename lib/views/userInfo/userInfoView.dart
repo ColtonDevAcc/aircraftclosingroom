@@ -17,7 +17,12 @@ class UserInfoView extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            LargeFeaturedCardWidget(screenWidth: _screenWidth * .1, screenHeight: _screenHeight / 12, title: 'User Information'),
+            LargeFeaturedCardWidget(
+              screenWidth: _screenWidth * .1,
+              screenHeight: _screenHeight / 12,
+              title: 'User Information',
+              xlScreenSize: false,
+            ),
             Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: Column(

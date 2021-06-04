@@ -15,6 +15,8 @@ class HomeView extends StatelessWidget {
     // ignore: unused_local_variable
     ScrollController _controller = ScrollController();
 
+    bool xlScreenSize = MediaQuery.of(context).size.height.toDouble() > 1500.0;
+
     double screenHeight = MediaQuery.of(context).size.height.toDouble();
     double screenWidth = MediaQuery.of(context).size.height.toDouble();
 
@@ -22,7 +24,7 @@ class HomeView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         LargeFeaturedCardWidget(
-          screenHeight: screenHeight / 1.1,
+          screenHeight: xlScreenSize ? screenHeight / .8 : screenHeight / 1.1,
           screenWidth: screenWidth / 3.5,
           title: '${UserInfo.customerName}\'s Closings',
           displayWidget: Container(
@@ -34,6 +36,7 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ),
+          xlScreenSize: xlScreenSize,
         ),
         //column that displays header text 'objectives/browse'
         Column(
@@ -48,7 +51,7 @@ class HomeView extends StatelessWidget {
         Container(
           //height of the cards. I dont know why the cards dont correlate with the defined height and width of the
           //variables provided in the custom widget
-          height: 185,
+          height: xlScreenSize ? screenHeight / 6 : 185,
           child: FutureBuilder(
             future: _closingList(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -128,10 +131,18 @@ Future<List<ClosingList>> _closingList() async {
 
 Padding closingCardsWidget(
     {borderRadius: double, context: dynamic, color: Colors, transparent: bool, title: String, featuredPicture: AssetImage, closingID: int, tailNumber: String, make: String, model: String, sNumber: String, orderDate: String, agentName: String, status: String, invObjType: String}) {
+  bool xlScreenSize = MediaQuery.of(context).size.height.toDouble() > 1500.0;
+
   return Padding(
     padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
     child: Container(
-      width: transparent ? 40 : 163,
+      width: xlScreenSize
+          ? transparent
+              ? 40
+              : 300
+          : transparent
+              ? 40
+              : 163,
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -176,7 +187,7 @@ Padding closingCardsWidget(
                       ),
               ),
               Spacer(flex: 1),
-              Text(title, style: TextStyle(color: transparent ? Colors.white.withOpacity(0) : Colors.white, fontWeight: FontWeight.w500)),
+              Text(title, style: TextStyle(color: transparent ? Colors.white.withOpacity(0) : Colors.white, fontWeight: FontWeight.w500, fontSize: xlScreenSize ? 23 : 15)),
               Spacer(flex: 2)
             ],
           ),
