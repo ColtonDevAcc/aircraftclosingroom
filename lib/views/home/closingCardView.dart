@@ -1,14 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:aircraftclosingroom/core/themeProvider.dart';
 import 'package:aircraftclosingroom/models/folder.dart';
 import 'package:aircraftclosingroom/models/players.dart';
 import 'package:aircraftclosingroom/services/userinfo_service.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
 
 class ClosingCardView extends StatelessWidget {
   final int? closingID;
@@ -22,24 +22,42 @@ class ClosingCardView extends StatelessWidget {
   final String? invObjType;
   final String? title;
   final Color? color;
+  static bool xlScreenSize = false;
 
-  const ClosingCardView({Key? key, this.color, this.title, this.closingID, this.tailNumber, this.make, this.model, this.sNumber, this.orderDate, this.agentName, this.status, this.invObjType}) : super(key: key);
+  const ClosingCardView({
+    Key? key,
+    this.closingID,
+    this.tailNumber,
+    this.make,
+    this.model,
+    this.sNumber,
+    this.orderDate,
+    this.agentName,
+    this.status,
+    this.invObjType,
+    this.title,
+    this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    xlScreenSize = MediaQuery.of(context).size.height.toDouble() > 1500.0;
     double _screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: color,
-        title: Text(this.title!),
+        title: Text(
+          this.title!,
+          style: TextStyle(fontSize: xlScreenSize ? 30 : 17),
+        ),
       ),
       body: ListView(
         children: [
           Column(
             children: [
               SizedBox(height: 10),
-              Text('Closing Details', style: TextStyle(color: ThemeProvider.secondaryTextColor), textScaleFactor: 1.3),
+              Text('Closing Details', style: TextStyle(color: ThemeProvider.secondaryTextColor), textScaleFactor: xlScreenSize ? 2.5 : 1.3),
               Padding(
                 padding: EdgeInsets.all(10),
                 child: Card(
@@ -52,39 +70,39 @@ class ClosingCardView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Closing ID:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
-                        Text('$closingID', style: TextStyle(color: ThemeProvider.bodyTextColor)),
+                        Text('Closing ID:', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                        Text('$closingID', style: TextStyle(color: ThemeProvider.bodyTextColor, fontSize: xlScreenSize ? 30 : 17)),
                         SizedBox(height: 10),
-                        Text('Tail Number:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
-                        Text('$tailNumber', style: TextStyle(color: ThemeProvider.bodyTextColor)),
+                        Text('Tail Number:', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                        Text('$tailNumber', style: TextStyle(color: ThemeProvider.bodyTextColor, fontSize: xlScreenSize ? 30 : 17)),
                         SizedBox(height: 10),
-                        Text('Make:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
-                        Text('$make', style: TextStyle(color: ThemeProvider.bodyTextColor)),
+                        Text('Make:', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                        Text('$make', style: TextStyle(color: ThemeProvider.bodyTextColor, fontSize: xlScreenSize ? 30 : 17)),
                         SizedBox(height: 10),
-                        Text('Model:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
-                        Text('$model', style: TextStyle(color: ThemeProvider.bodyTextColor)),
+                        Text('Model:', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                        Text('$model', style: TextStyle(color: ThemeProvider.bodyTextColor, fontSize: xlScreenSize ? 30 : 17)),
                         SizedBox(height: 10),
-                        Text('Serial Number:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
-                        Text('$sNumber', style: TextStyle(color: ThemeProvider.bodyTextColor)),
+                        Text('Serial Number:', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                        Text('$sNumber', style: TextStyle(color: ThemeProvider.bodyTextColor, fontSize: xlScreenSize ? 30 : 17)),
                         SizedBox(height: 10),
-                        Text('Order Date:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
-                        Text('$orderDate', style: TextStyle(color: ThemeProvider.bodyTextColor)),
+                        Text('Order Date:', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                        Text('$orderDate', style: TextStyle(color: ThemeProvider.bodyTextColor, fontSize: xlScreenSize ? 30 : 17)),
                         SizedBox(height: 10),
-                        Text('Agent Name:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
-                        Text('$agentName', style: TextStyle(color: ThemeProvider.bodyTextColor)),
+                        Text('Agent Name:', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                        Text('$agentName', style: TextStyle(color: ThemeProvider.bodyTextColor, fontSize: xlScreenSize ? 30 : 17)),
                         SizedBox(height: 10),
-                        Text('Status:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
-                        Text('$status', style: TextStyle(color: ThemeProvider.bodyTextColor)),
+                        Text('Status:', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                        Text('$status', style: TextStyle(color: ThemeProvider.bodyTextColor, fontSize: xlScreenSize ? 30 : 17)),
                         SizedBox(height: 10),
-                        Text('Part Type:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
-                        Text('$invObjType', style: TextStyle(color: ThemeProvider.bodyTextColor)),
+                        Text('Part Type:', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                        Text('$invObjType', style: TextStyle(color: ThemeProvider.bodyTextColor, fontSize: xlScreenSize ? 30 : 17)),
                         SizedBox(height: 10),
                       ],
                     ),
                   ),
                 ),
               ),
-              Text('Players', style: TextStyle(color: ThemeProvider.secondaryTextColor), textScaleFactor: 1.3),
+              Text('Players', style: TextStyle(color: ThemeProvider.secondaryTextColor), textScaleFactor: xlScreenSize ? 2.3 : 1.3),
               SizedBox(height: 10),
               Container(
                 child: FutureBuilder(
@@ -155,211 +173,215 @@ class ClosingCardView extends StatelessWidget {
 
     return playerList;
   }
-}
 
-Future<List<Folder>> _documentFolder({playerID: String}) async {
-  Uri getURL = Uri.parse('https://aicvirtualclosings.com/api/mobile/PlayerCategories/$playerID/${UserInfo.userSecretKey}');
-  var data = await http.get(getURL);
-  var jsonData = json.decode(data.body);
-  List<Folder> documentFolderList = [];
+  Future<List<Folder>> _documentFolder({playerID: String}) async {
+    Uri getURL = Uri.parse('https://aicvirtualclosings.com/api/mobile/PlayerCategories/$playerID/${UserInfo.userSecretKey}');
+    var data = await http.get(getURL);
+    var jsonData = json.decode(data.body);
+    List<Folder> documentFolderList = [];
 
-  for (var documentFolder in jsonData) {
-    Folder newDocumentFolder = Folder(
-      documentFolder['EscrowCategoryTransactionsId'],
-      documentFolder['Name'],
-      documentFolder['CustomLabel'],
-      documentFolder['Received'],
-      documentFolder['DateReceived'],
-    );
-    documentFolderList.add(newDocumentFolder);
-  }
-  print('loaded folders :)');
-  return documentFolderList;
-}
-
-Future<List<FolderContents>> _getContents({escrowCategoryTransactionsId: String}) async {
-  List<FolderContents> folderDocumentList = [];
-
-  var idUrl = Uri.parse('https://aicvirtualclosings.com/api/mobile/CategoryDocs/${UserInfo.playerID}/$escrowCategoryTransactionsId/${UserInfo.userSecretKey}');
-
-  var data = await http.get(idUrl);
-  var jsondata = jsonDecode(data.body);
-
-  for (var content in jsondata) {
-    FolderContents document = FolderContents(
-      content['DocumentID'],
-      content['Status'],
-      content['Date'],
-      content['FileType'],
-    );
-    folderDocumentList.add(document);
+    for (var documentFolder in jsonData) {
+      Folder newDocumentFolder = Folder(
+        documentFolder['EscrowCategoryTransactionsId'],
+        documentFolder['Name'],
+        documentFolder['CustomLabel'],
+        documentFolder['Received'],
+        documentFolder['DateReceived'],
+      );
+      documentFolderList.add(newDocumentFolder);
+    }
+    print('loaded folders :)');
+    return documentFolderList;
   }
 
-  return folderDocumentList;
-}
+  Future<List<FolderContents>> _getContents({escrowCategoryTransactionsId: String}) async {
+    List<FolderContents> folderDocumentList = [];
+
+    var idUrl = Uri.parse('https://aicvirtualclosings.com/api/mobile/CategoryDocs/${UserInfo.playerID}/$escrowCategoryTransactionsId/${UserInfo.userSecretKey}');
+
+    var data = await http.get(idUrl);
+    var jsondata = jsonDecode(data.body);
+
+    for (var content in jsondata) {
+      FolderContents document = FolderContents(
+        content['DocumentID'],
+        content['Status'],
+        content['Date'],
+        content['FileType'],
+      );
+      folderDocumentList.add(document);
+    }
+
+    return folderDocumentList;
+  }
 
 //=============================================
 //player profiles
 //=============================================
-Padding closingPlayersList({context: dynamic, color: Color, name: String, playerRole: String, screenWidth: double, closingID: String, closingPlayerID: String, companyName: String, email: String, isUser: bool}) {
-  // ignore: unnecessary_statements
-  isUser ? UserInfo.playerID = closingPlayerID.toString() : null;
-  return Padding(
-    padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
-    child: Container(
-      child: InkWell(
-        child: Card(
-          shadowColor: Colors.black.withOpacity(0),
-          color: color,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Center(
-                child: Column(
-                  children: [
-                    SizedBox(height: 10),
-                    Text(isUser ? '$name // Your Card' : name, style: TextStyle(color: color == Colors.white.withOpacity(0) ? ThemeProvider.secondaryTextColor : ThemeProvider.primaryTextColor)),
-                    Text('-- ' + playerRole + ' --', style: TextStyle(color: color == Colors.white.withOpacity(0) ? ThemeProvider.secondaryTextColor : ThemeProvider.primaryTextColor)),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Card(
-                        elevation: 3,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        color: ThemeProvider.primaryCardColor,
-                        child: Container(
-                          margin: EdgeInsets.all(10),
-                          width: screenWidth,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text('Name:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
-                              Text('$name', style: TextStyle(color: ThemeProvider.bodyTextColor)),
-                              SizedBox(height: 10),
-                              Text('Email:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
-                              Text('$email', style: TextStyle(color: ThemeProvider.bodyTextColor)),
-                              SizedBox(height: 10),
-                              Text('companyName:', style: TextStyle(color: ThemeProvider.secondaryTextColor)),
-                              Text('$companyName', style: TextStyle(color: ThemeProvider.bodyTextColor)),
-                              SizedBox(height: 10),
-                              //this is the document text ('Document')
-                              Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Documents', style: TextStyle(color: ThemeProvider.secondaryTextColor))]),
-                              FutureBuilder(
-                                future: _documentFolder(playerID: closingPlayerID),
-                                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                                  if (snapshot.data != null) {
-                                    return Container(
-                                      child: ListView.builder(
-                                        physics: NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount: snapshot.data.length,
-                                        itemBuilder: (BuildContext context, int index) {
-                                          return playerDocumentList(
-                                            escrowCategoryTransactionsId: snapshot.data[index].escrowCategoryTransactionsId,
-                                            folderName: snapshot.data[index].customLabel,
-                                            recieved: snapshot.data[index].received.toString(),
-                                            dateRecieved: snapshot.data[index].dateReceived.toString(),
-                                            color: ThemeProvider.primaryCardColor,
-                                            you: isUser,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  } else {
-                                    return Container(
-                                      child: Center(
-                                        child: Text('Loading player documents....'),
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                            ],
+  Padding closingPlayersList({color: Color, name: String, playerRole: String, screenWidth: double, closingID: String, closingPlayerID: String, companyName: String, email: String, isUser: bool}) {
+    // ignore: unnecessary_statements
+    isUser ? UserInfo.playerID = closingPlayerID.toString() : null;
+    return Padding(
+      padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
+      child: Container(
+        child: InkWell(
+          child: Card(
+            shadowColor: Colors.black.withOpacity(0),
+            color: color,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10),
+                      Text(isUser ? '$name // Your Card' : name, style: TextStyle(color: color == Colors.white.withOpacity(0) ? ThemeProvider.secondaryTextColor : ThemeProvider.primaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                      Text('-- ' + playerRole + ' --', style: TextStyle(color: color == Colors.white.withOpacity(0) ? ThemeProvider.secondaryTextColor : ThemeProvider.primaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          color: ThemeProvider.primaryCardColor,
+                          child: Container(
+                            margin: EdgeInsets.all(10),
+                            width: screenWidth,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text('Name:', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                                Text('$name', style: TextStyle(color: ThemeProvider.bodyTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                                SizedBox(height: 10),
+                                Text('Email:', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                                Text('$email', style: TextStyle(color: ThemeProvider.bodyTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                                SizedBox(height: 10),
+                                Text('companyName:', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                                Text('$companyName', style: TextStyle(color: ThemeProvider.bodyTextColor, fontSize: xlScreenSize ? 30 : 17)),
+                                SizedBox(height: 10),
+                                //this is the document text ('Document')
+                                Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text('Documents', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontSize: xlScreenSize ? 30 : 17))]),
+                                FutureBuilder(
+                                  future: _documentFolder(playerID: closingPlayerID),
+                                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                                    if (snapshot.data != null) {
+                                      return Container(
+                                        child: ListView.builder(
+                                          physics: NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: snapshot.data.length,
+                                          itemBuilder: (BuildContext context, int index) {
+                                            return playerDocumentList(
+                                              escrowCategoryTransactionsId: snapshot.data[index].escrowCategoryTransactionsId,
+                                              folderName: snapshot.data[index].customLabel,
+                                              recieved: snapshot.data[index].received.toString(),
+                                              dateRecieved: snapshot.data[index].dateReceived.toString(),
+                                              color: ThemeProvider.primaryCardColor,
+                                              you: isUser,
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    } else {
+                                      return Container(
+                                        child: Center(
+                                          child: Text('Loading player documents....'),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 
 //=============================================
 //document folders
 //=============================================
-Padding playerDocumentList({color: Colors, folderName: String, dateRecieved: String, escrowCategoryTransactionsId: String, recieved: String, you: bool}) {
-  bool _documentCompleted = dateRecieved != 'null' ? true : false;
+  Padding playerDocumentList({color: Colors, folderName: String, dateRecieved: String, escrowCategoryTransactionsId: String, recieved: String, you: bool}) {
+    bool _documentCompleted = dateRecieved != 'null' ? true : false;
 
-  return Padding(
-    padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
-    child: Container(
-      width: 50,
-      height: 90,
-      child: Card(
-        color: color,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            you
-                ? FutureBuilder(
-                    future: _getContents(
-                      escrowCategoryTransactionsId: escrowCategoryTransactionsId,
+    return Padding(
+      padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
+      child: Container(
+        width: 50,
+        height: 90,
+        child: Card(
+          color: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              you
+                  ? FutureBuilder(
+                      future: _getContents(
+                        escrowCategoryTransactionsId: escrowCategoryTransactionsId,
+                      ),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.data != null) {
+                          return Container(
+                            child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ListTile(
+                                  leading: _documentCompleted ? Icon(Icons.done, color: Colors.green) : Icon(Icons.close, color: Colors.red),
+                                  trailing: you ? Icon(Icons.search) : null,
+                                  title: Text(folderName, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500, fontSize: xlScreenSize ? 22 : 17)),
+                                  subtitle: _documentCompleted
+                                      ? Text(dateRecieved, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500, fontSize: xlScreenSize ? 22 : 17))
+                                      : Text('Not Completed', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500, fontSize: xlScreenSize ? 22 : 17)),
+                                  onTap: you
+                                      // on tap functionality
+                                      ? () async {
+                                          await launch('https://aircraftclosingroom.com/api/mobile/getdocument/${snapshot.data[index].documentId}/${UserInfo.userSecretKey}', forceWebView: false, forceSafariVC: false, enableDomStorage: true, enableJavaScript: true);
+                                          print('https://aircraftclosingroom.com/api/mobile/getdocument/${snapshot.data[index].documentId}/${UserInfo.userSecretKey}');
+                                        }
+                                      : null,
+                                );
+                              },
+                            ),
+                          );
+                        } else {
+                          return Center(
+                            child: Container(
+                              child: Text('loading player content...'),
+                            ),
+                          );
+                        }
+                      } // else here ,
+                      )
+                  : ListTile(
+                      leading: _documentCompleted ? Icon(Icons.done, color: Colors.green) : Icon(Icons.close, color: Colors.red),
+                      trailing: you ? Icon(Icons.search) : null,
+                      title: Text(folderName, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500, fontSize: xlScreenSize ? 22 : 17)),
+                      subtitle: _documentCompleted
+                          ? Text(dateRecieved, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500, fontSize: xlScreenSize ? 22 : 17))
+                          : Text('Not Completed', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500, fontSize: xlScreenSize ? 22 : 17)),
                     ),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if (snapshot.data != null) {
-                        return Container(
-                          child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ListTile(
-                                leading: _documentCompleted ? Icon(Icons.done, color: Colors.green) : Icon(Icons.close, color: Colors.red),
-                                trailing: you ? Icon(Icons.search) : null,
-                                title: Text(folderName, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)),
-                                subtitle: _documentCompleted ? Text(dateRecieved, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)) : Text('Not Completed', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)),
-                                onTap: you
-                                    // on tap functionality
-                                    ? () async {
-                                        await launch('https://aircraftclosingroom.com/api/mobile/getdocument/${snapshot.data[index].documentId}/${UserInfo.userSecretKey}', forceWebView: false, forceSafariVC: false, enableDomStorage: true, enableJavaScript: true);
-                                        print('https://aircraftclosingroom.com/api/mobile/getdocument/${snapshot.data[index].documentId}/${UserInfo.userSecretKey}');
-                                      }
-                                    : null,
-                              );
-                            },
-                          ),
-                        );
-                      } else {
-                        return Center(
-                          child: Container(
-                            child: Text('loading player content...'),
-                          ),
-                        );
-                      }
-                    } // else here ,
-                    )
-                : ListTile(
-                    leading: _documentCompleted ? Icon(Icons.done, color: Colors.green) : Icon(Icons.close, color: Colors.red),
-                    trailing: you ? Icon(Icons.search) : null,
-                    title: Text(folderName, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)),
-                    subtitle: _documentCompleted ? Text(dateRecieved, style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)) : Text('Not Completed', style: TextStyle(color: ThemeProvider.secondaryTextColor, fontWeight: FontWeight.w500)),
-                  ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }

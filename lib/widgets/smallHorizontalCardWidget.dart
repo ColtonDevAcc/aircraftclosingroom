@@ -18,6 +18,7 @@ class SmallHorizontalFeaturedCardWidget extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    bool xlScreenSize = MediaQuery.of(context).size.height.toDouble() > 1500.0;
     return InkWell(
       onTap: this.onTap,
       child: Card(
@@ -44,6 +45,7 @@ class SmallHorizontalFeaturedCardWidget extends StatelessWidget {
           contentPadding: EdgeInsets.all(5),
           title: Text(
             title,
+            textScaleFactor: xlScreenSize ? 1.5 : 1,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: ThemeProvider.secondaryTextColor),
           ),
           trailing: Padding(

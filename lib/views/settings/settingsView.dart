@@ -14,6 +14,7 @@ class SettingsView extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+    bool xlScreenSize = MediaQuery.of(context).size.height.toDouble() > 1500.0;
 
     return Column(
       children: [
