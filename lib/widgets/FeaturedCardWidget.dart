@@ -50,18 +50,20 @@ class LargeFeaturedCardWidget extends StatelessWidget {
                         Icon(Icons.search, color: ThemeProvider.secondaryTextColor),
                       ],
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (displayWidget != null)
-                          Container(
-                            child: displayWidget!,
-                            height: xlScreenSize ? screenHeight / 2 : screenHeight / 2,
-                          )
-                        else
-                          Text(''),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (displayWidget != null)
+                            Container(
+                              child: displayWidget!,
+                              height: xlScreenSize ? screenHeight / 2 : screenHeight / 2,
+                            )
+                          else
+                            Text(''),
+                        ],
+                      ),
                     )
                   ],
                 ),
